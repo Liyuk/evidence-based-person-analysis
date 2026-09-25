@@ -32,6 +32,12 @@ REQUIRED_CATEGORIES = {
     "counterevidence_update",
     "explicit_steelman_components",
     "ambiguous_nonviolent_residence_visit",
+    "fraud_pattern_support",
+    "coercive_control_and_agency",
+    "dual_use_manipulation",
+    "diagnosis_vs_behavior",
+    "chat_record_scoped_analysis",
+    "fictional_character_textual_analysis",
 }
 
 

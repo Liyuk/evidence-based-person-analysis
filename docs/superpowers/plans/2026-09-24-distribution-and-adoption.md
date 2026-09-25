@@ -101,7 +101,7 @@
 - Modify: `docs/superpowers/plans/2026-09-24-distribution-and-adoption.md`
 
 - [x] 用 Python 结构校验器检查最终仓库。
-- [x] 用回归场景校验器检查 20 个类别、唯一 ID、输入及报告锚点。
+- [x] 用回归场景校验器检查 26 个类别、唯一 ID、输入及报告锚点。
 - [x] 用 Ruby YAML parser 解析 SKILL frontmatter 与 `agents/openai.yaml`。
 - [x] 用固定版本 Skills CLI 本地发现 smoke test 确认只发现 `person-deep-analysis`，并在临时目录验证 Codex 与 Claude Code 目标安装和文件完整性。
 - [x] 按回归场景人工复核规则；另用 Codex CLI 在隔离临时项目运行合成案例与三例 Skill/普通提示对照，记录盲化模型评分、初次缺口、规则修订、复测结果和限制。
