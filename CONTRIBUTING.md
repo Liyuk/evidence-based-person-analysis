@@ -1,13 +1,14 @@
 # 贡献指南
 
-欢迎提交边界修正、分析步骤改进、宿主兼容反馈、翻译和评估案例。请围绕项目承诺贡献：**基于用户提供的材料做可追溯分析，呈现不确定性，不把分析包装成诊断、读心或关系决策。**
+欢迎补充边界修正、识别流程改进、宿主兼容反馈、翻译和评估案例。贡献应服务于项目承诺：**根据具体行为帮助普通人核对诈骗、操控或霸凌风险，说明判断依据和未知，并把决定权留给当事人。**
 
 ## 提交前
 
 - 先搜索已有 issue/文档，说明具体场景、预期行为和当前问题。
-- 改动 `skills/person-deep-analysis/` 时，保持运行时文件自包含；文件引用用相对 skill 根目录的路径。
-- 新增/修改行为规则时，同步更新 `evals/behavior-regression.md`，写明输入、可观察的通过标准和限制。
-- 理论/术语主张应有可靠来源；明确区分研究证据、启发式和项目假设。不要用仓库自述或单个案例宣称有效性。
+- 改动 `skills/interaction-risk-analysis/` 时，保持运行时包自包含，文件引用使用 Skill 目录内的相对路径。
+- 修改解构、反诈或安全行为时，更新相应的 `evals/interaction-risk-cases.json` / `evals/interaction-risk-acceptance.md`，并在适用时更新 `safety-scenarios.json` 与 `safety-regression.md`。
+- 诈骗和心理学术语的事实主张应有可靠来源；区分研究证据、观察线索和项目假设。不要以仓库自述或单个例子宣称有效。
+- `archive/person-deep-analysis/` 保留旧版原始内容供追溯。活跃 Skill 位于 `skills/interaction-risk-analysis/`；修改时同步验收场景，避免复制未经审查的旧版规则。
 
 ## 案例隐私
 
@@ -17,9 +18,12 @@
 
 ```sh
 python3 scripts/validate_skill.py
+python3 scripts/validate_evals.py
+python3 scripts/validate_safety_evals.py
+python3 scripts/validate_interaction_risk_evals.py
 ```
 
-评估文档是人工复核用例，不是自动心理学评分或模型效果证明。若验证器或宿主运行与预期不一致，请在贡献说明中保留确切环境、输入、输出差异和复现步骤，并避免附上真实个人数据。
+评估文档用于行为复核，不是自动心理评分或效果证明。如果校验器或宿主运行与预期不符，请记录准确环境、合成输入、差异和复现步骤，不提交真实私人材料。
 
 ## Pull request 内容
 

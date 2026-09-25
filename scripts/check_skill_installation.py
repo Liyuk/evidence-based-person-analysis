@@ -11,35 +11,27 @@ from tempfile import TemporaryDirectory
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
 SKILL_SOURCE = REPO_ROOT
-SKILL_NAME = "person-deep-analysis"
+SKILL_NAME = "interaction-risk-analysis"
 SKILLS_CLI_VERSION = "1.7.0"
 TIMEOUT_SECONDS = 120
 REQUIRED_RUNTIME_FILES = (
     "SKILL.md",
     "agents/openai.yaml",
-    "modules/m1-needs-and-preferences.md",
-    "modules/m2-self-cognition.md",
-    "modules/m3-experience-and-development.md",
-    "modules/m4-shadow-risk.md",
     "modules/m5-interaction-patterns.md",
-    "dlc/relationship-dynamics.md",
-    "dlc/narrative-identity.md",
+    "references/interaction-decomposition.md",
+    "references/methodology-and-limitations.md",
     "references/axioms.md",
     "references/signal-mapping.md",
-    "references/attachment-styles.md",
-    "references/methodology-and-limitations.md",
-    "references/safety-boundaries.md",
-    "references/perspectives/psychodynamic.md",
-    "references/perspectives/humanistic-and-needs.md",
-    "references/perspectives/developmental-psychology.md",
-    "references/perspectives/cbt-descriptive.md",
-    "references/perspectives/forensic-evidence-boundaries.md",
-    "references/perspectives/steelman-report.md",
+    "references/reasoning-with-the-user.md",
+    "references/scams-and-social-engineering.md",
+    "references/relationship-coercion.md",
+    "references/workplace-and-social-bullying.md",
+    "references/safety-and-agency.md",
 )
 
 
 def main() -> int:
-    with TemporaryDirectory(prefix="person-deep-analysis-install-") as temp_dir:
+    with TemporaryDirectory(prefix="interaction-risk-install-") as temp_dir:
         try:
             result = subprocess.run(
                 [

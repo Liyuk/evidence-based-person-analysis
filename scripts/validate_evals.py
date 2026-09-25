@@ -38,6 +38,8 @@ REQUIRED_CATEGORIES = {
     "diagnosis_vs_behavior",
     "chat_record_scoped_analysis",
     "fictional_character_textual_analysis",
+    "dark_triad_behavioral_screening",
+    "repeated_exploitation_behavior",
 }
 
 

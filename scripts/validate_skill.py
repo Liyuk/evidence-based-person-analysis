@@ -10,35 +10,34 @@ from urllib.parse import unquote, urlparse
 
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
-SKILL_ROOT = REPO_ROOT / "skills" / "person-deep-analysis"
+SKILL_ROOT = REPO_ROOT / "skills" / "interaction-risk-analysis"
 REQUIRED_FILES = (
-    "skills/person-deep-analysis/SKILL.md",
-    "skills/person-deep-analysis/agents/openai.yaml",
-    "skills/person-deep-analysis/modules/m1-needs-and-preferences.md",
-    "skills/person-deep-analysis/modules/m2-self-cognition.md",
-    "skills/person-deep-analysis/modules/m3-experience-and-development.md",
-    "skills/person-deep-analysis/modules/m4-shadow-risk.md",
-    "skills/person-deep-analysis/modules/m5-interaction-patterns.md",
-    "skills/person-deep-analysis/dlc/relationship-dynamics.md",
-    "skills/person-deep-analysis/dlc/narrative-identity.md",
-    "skills/person-deep-analysis/dlc/fictional-character-analysis.md",
-    "skills/person-deep-analysis/references/axioms.md",
-    "skills/person-deep-analysis/references/signal-mapping.md",
-    "skills/person-deep-analysis/references/attachment-styles.md",
-    "skills/person-deep-analysis/references/methodology-and-limitations.md",
-    "skills/person-deep-analysis/references/safety-boundaries.md",
-    "skills/person-deep-analysis/references/fraud-and-coercive-control-support.md",
-    "skills/person-deep-analysis/references/perspectives/psychodynamic.md",
-    "skills/person-deep-analysis/references/perspectives/humanistic-and-needs.md",
-    "skills/person-deep-analysis/references/perspectives/developmental-psychology.md",
-    "skills/person-deep-analysis/references/perspectives/cbt-descriptive.md",
-    "skills/person-deep-analysis/references/perspectives/forensic-evidence-boundaries.md",
-    "skills/person-deep-analysis/references/perspectives/steelman-report.md",
+    "skills/interaction-risk-analysis/SKILL.md",
+    "skills/interaction-risk-analysis/agents/openai.yaml",
+    "skills/interaction-risk-analysis/references/methodology-and-limitations.md",
+    "skills/interaction-risk-analysis/references/interaction-decomposition.md",
+    "skills/interaction-risk-analysis/references/axioms.md",
+    "skills/interaction-risk-analysis/references/signal-mapping.md",
+    "skills/interaction-risk-analysis/references/reasoning-with-the-user.md",
+    "skills/interaction-risk-analysis/references/scams-and-social-engineering.md",
+    "skills/interaction-risk-analysis/references/relationship-coercion.md",
+    "skills/interaction-risk-analysis/references/workplace-and-social-bullying.md",
+    "skills/interaction-risk-analysis/references/safety-and-agency.md",
+    "archive/person-deep-analysis/SKILL.md",
     "docs/research/multilens-psychology-evidence.md",
     "docs/research/multilens-design-review.md",
     "docs/research/network-evaluation-sources.md",
     "docs/research/fraud-and-coercive-control-guidance.md",
     "docs/launch/blog-project-module.md",
+    "docs/demos/README.md",
+    "docs/demos/01-romance-investment.md",
+    "docs/demos/02-task-deposit.md",
+    "docs/demos/03-emotional-blackmail.md",
+    "docs/demos/04-emotional-abuse-and-control.md",
+    "docs/demos/05-peer-bullying.md",
+    "docs/demos/06-workplace-bullying.md",
+    "docs/demos/07-single-memory-conflict.md",
+    "docs/demos/08-counterevidence-update.md",
     "README.md",
     "README_EN.md",
     "CONTRIBUTING.md",
@@ -46,8 +45,17 @@ REQUIRED_FILES = (
     "docs/launch/README.md",
     "docs/launch/content-kit.md",
     "docs/research/github-comparable-projects.md",
+    "docs/research/interaction-risk-skills-landscape.md",
+    "docs/research/demo-scenario-sources.md",
     "evals/README.md",
     "evals/behavior-regression.md",
+    "evals/safety-scenarios.json",
+    "evals/safety-regression.md",
+    "evals/interaction-risk-cases.json",
+    "evals/interaction-risk-acceptance.md",
+    "evals/results/2026-09-25-person-analysis-anti-fraud-acceptance.md",
+    "evals/results/2026-09-25-decomposition-method-evaluation.md",
+    "evals/results/2026-09-25-public-safety-skill-forward-test.md",
     "evals/results/2026-09-24-network-example-ab-pilot.md",
     "evals/results/2026-09-25-scope-expansion-smoke.md",
     "evals/results/2026-09-24-fraud-agency-forward-test.md",
@@ -59,6 +67,8 @@ REQUIRED_FILES = (
     "scripts/check_skill_discovery.py",
     "scripts/check_skill_installation.py",
     "scripts/validate_skill.py",
+    "scripts/validate_safety_evals.py",
+    "scripts/validate_interaction_risk_evals.py",
     "scripts/validate_evals.py",
 )
 LINK_RE = re.compile(r"(?<!!)\[[^\]]*\]\(([^)]+)\)")
@@ -72,7 +82,7 @@ def check_frontmatter(errors: list[str]) -> None:
     content = skill_file.read_text(encoding="utf-8")
     match = FRONTMATTER_RE.match(content)
     if not match:
-        errors.append("skills/person-deep-analysis/SKILL.md: missing YAML frontmatter")
+        errors.append("skills/interaction-risk-analysis/SKILL.md: missing YAML frontmatter")
         return
     fields = match.group(1)
     name_match = re.search(r"^name:\s*([^\s#]+)\s*$", fields, flags=re.MULTILINE)
@@ -103,6 +113,14 @@ def check_no_root_skill(errors: list[str]) -> None:
         errors.append("repository root must not contain SKILL.md; installable skill belongs under skills/")
 
 
+def check_single_installable_skill(errors: list[str]) -> None:
+    skill_files = sorted((REPO_ROOT / "skills").glob("*/SKILL.md"))
+    expected = REPO_ROOT / "skills" / "interaction-risk-analysis" / "SKILL.md"
+    if skill_files != [expected]:
+        names = [str(path.relative_to(REPO_ROOT)) for path in skill_files]
+        errors.append(f"expected exactly one installable skill {expected.relative_to(REPO_ROOT)}, found {names}")
+
+
 def check_markdown_links(errors: list[str]) -> None:
     for source in REPO_ROOT.rglob("*.md"):
         if any(part.startswith(".") for part in source.relative_to(REPO_ROOT).parts):
@@ -127,6 +145,7 @@ def main() -> int:
     check_required_files(errors)
     check_frontmatter(errors)
     check_no_root_skill(errors)
+    check_single_installable_skill(errors)
     check_markdown_links(errors)
     if errors:
         print("Repository validation failed:")
