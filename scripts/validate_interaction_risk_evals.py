@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import json
+import re
 import sys
 from pathlib import Path
 
@@ -11,6 +12,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 CASES_FILE = ROOT / "evals" / "interaction-risk-cases.json"
 ACCEPTANCE_FILE = ROOT / "evals" / "interaction-risk-acceptance.md"
+CURRENT_HOST_REPORT = ROOT / "evals" / "results" / "interaction-risk-analysis-host-acceptance.md"
 REQUIRED_CASES = 20
 REQUIRED_CATEGORIES = {
     "multi_event_decomposition",
@@ -84,9 +86,45 @@ def main() -> int:
     if missing_anchors:
         return fail(f"missing acceptance anchors: {', '.join(missing_anchors)}")
 
+    index_match = re.search(
+        r"^## 场景索引\s*$([\s\S]*?)(?=^## |\Z)", acceptance, flags=re.MULTILINE
+    )
+    if not index_match:
+        return fail("acceptance document is missing the scenario index")
+    index_rows = re.findall(
+        r"^\| \[([^]]+)\] \| ([^|]+) \|\s*$", index_match.group(1), flags=re.MULTILINE
+    )
+    indexed_ids = [case_id for case_id, _ in index_rows]
+    if len(indexed_ids) != len(set(indexed_ids)):
+        return fail("acceptance scenario index contains duplicate case IDs")
+    if indexed_ids != ids:
+        missing = sorted(set(ids) - set(indexed_ids))
+        extra = sorted(set(indexed_ids) - set(ids))
+        details = []
+        if missing:
+            details.append(f"missing from index: {', '.join(missing)}")
+        if extra:
+            details.append(f"unknown in index: {', '.join(extra)}")
+        return fail("acceptance scenario index does not match case JSON (" + "; ".join(details) + ")")
+    non_pending = [
+        case_id for case_id, status in index_rows if status.strip() != "新 ID 未运行"
+    ]
+    if non_pending:
+        try:
+            host_report = CURRENT_HOST_REPORT.read_text(encoding="utf-8")
+        except OSError:
+            return fail(
+                "acceptance statuses claim current-ID runs, but the current host report is missing"
+            )
+        if "$interaction-risk-analysis" not in host_report:
+            return fail("current host report must identify an explicit $interaction-risk-analysis run")
+        unreported = [case_id for case_id in non_pending if case_id not in host_report]
+        if unreported:
+            return fail("current host report does not mention indexed cases: " + ", ".join(unreported))
+
     print(
         f"Interaction-risk cases passed ({len(ids)} unique cases; "
-        f"{len(REQUIRED_CATEGORIES)} required categories)."
+        f"{len(REQUIRED_CATEGORIES)} required categories; acceptance index matches case JSON)."
     )
     return 0
 

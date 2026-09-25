@@ -41,7 +41,7 @@ This is not an automatic detector, clinical diagnosis, legal finding, investigat
 
 ## Evaluation
 
-The repository contains 20 synthetic cases for interaction-risk analysis, including causal and purpose inference. Eight scenario demos preserve ordinary Codex and explicit Skill outputs from before the rename, when the Skill ID was `person-analysis`. The [historical acceptance report](evals/results/2026-09-25-person-analysis-anti-fraud-acceptance.md) records those runs and their limits.
+The repository contains 20 synthetic acceptance cases with expected and forbidden behaviors, including causal and purpose inference. These cases have not yet been run individually with the renamed `interaction-risk-analysis` ID. Eight scenario demos preserve ordinary Codex and explicit Skill outputs from before the rename, when the Skill ID was `person-analysis`; they are historical results, not reruns of the current ID. The [historical acceptance report](evals/results/2026-09-25-person-analysis-anti-fraud-acceptance.md) records those runs and their limits.
 
 ```sh
 python3 scripts/validate_skill.py

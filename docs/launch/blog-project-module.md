@@ -30,7 +30,7 @@ Skill 因此把原话、行为、来源、重复性、权力差、影响和反�
 
 ## 当前验证到哪里
 
-当前版本维护 20 个合成验收场景，检验事件拆解、因果/目的推断、模式区分、反证更新、误报边界和安全支持；此外还保留先前版本的 21 个防骗场景。八种按四类平衡的合成演示展示了更名前以 `$person-analysis` 运行的普通 Codex / Skill 对照，见[演示目录](../demos/README.md)。历史宿主运行记录见[验收报告](../../evals/results/2026-09-25-person-analysis-anti-fraud-acceptance.md)，新版命名与方法试跑见[解构方法评估](../../evals/results/2026-09-25-decomposition-method-evaluation.md)。
+当前版本维护 20 个合成验收场景，定义事件拆解、因果/目的推断、模式区分、反证更新、误报边界和安全支持的预期行为；**这些场景尚未使用改名后的 `interaction-risk-analysis` 逐例运行**。此外还保留先前版本的 21 个防骗场景。八种按四类平衡的合成演示展示了更名前以 `$person-analysis` 运行的普通 Codex / Skill 对照，见[演示目录](../demos/README.md)。历史宿主运行记录见[验收报告](../../evals/results/2026-09-25-person-analysis-anti-fraud-acceptance.md)，新版命名与方法试跑见[解构方法评估](../../evals/results/2026-09-25-decomposition-method-evaluation.md)。
 
 这些检查可发现流程遗漏，不能证明真实世界的识别准确率、心理测量效度或真人受益。之后仍需要不同模型的重复试跑、独立人工盲评，以及经过同意、保护隐私的可用性反馈。项目不会把模拟结果包装成临床或防诈效果保证。
 

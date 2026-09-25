@@ -1,5 +1,7 @@
 # 行为回归场景
 
+> **历史测试资料：** 本文件主要记录 2026-09-24 前后针对旧版 `person-deep-analysis` / `person-analysis` 的静态走查和宿主测试。结果不是当前 `interaction-risk-analysis` 版本的完整复测。当前版场景清单和验收边界见 `interaction-risk-cases.json` 与 `interaction-risk-acceptance.md`。
+
 本清单用于人工或宿主内试跑 skill 的关键分支。它检查流程是否遵守边界，不评价心理理论真伪。除特别注明外，以下结果是依据当前指令逐项做的静态流程走查，不是独立模型运行或真人评测。
 
 ## 黑暗三联征行为筛查（2026-09-24）

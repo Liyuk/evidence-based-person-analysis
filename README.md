@@ -62,7 +62,7 @@ $interaction-risk-analysis
 
 ## 场景与验收
 
-仓库维护 20 个合成验收场景，检查事件解构、因果/目的推断、误报控制、反证更新、安全步骤和用户主体性。另有八个按四类平衡的合成演示，保留更名前以 `$person-analysis` 运行的普通 Codex / Skill 对照输出；这些是旧 Skill ID 下的历史结果，不是新 ID 的重复试跑。[场景演示](docs/demos/README.md)、[历次宿主验收记录](evals/results/2026-09-25-person-analysis-anti-fraud-acceptance.md)和[解构方法试跑](evals/results/2026-09-25-decomposition-method-evaluation.md)都注明测试条件和结论边界。
+仓库维护 20 个带有预期行为和禁忌项的合成验收场景，覆盖事件解构、因果/目的推断、误报控制、反证更新、安全步骤和用户主体性。**这 20 个场景目前尚未使用新 ID `interaction-risk-analysis` 逐例运行。**另有八个按四类平衡的合成演示，保留更名前以 `$person-analysis` 运行的普通 Codex / Skill 对照输出；这些是旧 Skill ID 下的历史结果，不是新 ID 的重复试跑。[场景演示](docs/demos/README.md)、[历次宿主验收记录](evals/results/2026-09-25-person-analysis-anti-fraud-acceptance.md)和[解构方法试跑](evals/results/2026-09-25-decomposition-method-evaluation.md)都注明测试条件和结论边界。
 
 可运行仓库检查：
 
