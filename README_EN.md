@@ -6,17 +6,19 @@ An Agent Skill for understanding what user-provided self-descriptions, personal 
 
 ## Install
 
-After this repository is published, install the skill with [Skills CLI](https://github.com/vercel-labs/skills):
+Install the published skill with [Skills CLI](https://github.com/vercel-labs/skills):
 
 ```sh
 # Codex
-npx skills add <OWNER>/<REPO> --skill person-deep-analysis -g --agent codex -y
+npx skills add Liyuk/evidence-based-person-analysis --skill person-deep-analysis -g --agent codex -y
 
 # Claude Code
-npx skills add <OWNER>/<REPO> --skill person-deep-analysis -g --agent claude-code -y
+npx skills add Liyuk/evidence-based-person-analysis --skill person-deep-analysis -g --agent claude-code -y
 ```
 
-Replace `<OWNER>/<REPO>` with the actual GitHub source. For local discovery before publication:
+The repository has passed CI checks for Skills CLI discovery and isolated Codex/Claude Code installation layouts. A Codex CLI explicit-invocation smoke test is recorded in the [behavior report](evals/results/2026-09-24-codex-cli-runtime-smoke.md); a three-case Skill/baseline pilot with model-based blind scoring is in the [A/B report](evals/results/2026-09-24-network-example-ab-pilot.md). The pilot helped find and fix a proportionality issue, but does not establish stable gains or psychological validity. Desktop auto-loading, cross-model consistency, and real-user outcomes remain unevaluated. To check discovery from a local clone:
+
+**You do not need to publish this Skill as an npm package.** `npx skills` runs the installer CLI; the Skill itself is installed directly from GitHub. Consider npm only if the project later ships a reusable JavaScript library or command-line tool.
 
 ```sh
 npx --yes skills add . --list
@@ -56,7 +58,7 @@ Not for diagnosing, inferring trauma or sensitive traits, proving what someone i
 
 ## What makes it different
 
-Among the projects in our comparison, several focus on relationship advice, couple-conflict interventions, chat-archive analysis, or relationship simulation. This skill focuses on a structured analysis of one person's supplied material, with optional relationship and narrative modules. It does not decide whether a user should stay in a relationship, infer trauma from a profile, or claim to reveal someone's true inner life.
+In our limited sample of eight public repositories, evidence-first analysis, alternatives, and uncertainty also appear in adjacent projects. For example, [Analyze Romantic Relationships](https://github.com/jeejohn/analyze-romantic-relationships) focuses on relationship claims and decision support, while [Person Behavior Analysis](https://github.com/wangguofeng728/person-behavior-analysis-skill) focuses on long-term chat records and longitudinal behavior hypotheses. This skill's narrower default is to examine the personal material a user provides now—such as a profile, self-description, or short interaction—and state what it supports and what remains unknown. This sample-based positioning does not claim ecosystem-wide uniqueness. See the [comparison research](docs/research/github-comparable-projects.md) for scope and sources.
 
 Its heuristics are prompts for questions, not validated causal laws or clinical measures. It is not a diagnostic or crisis-response tool. If the material indicates imminent danger, prioritize real-world safety support over profile analysis.
 

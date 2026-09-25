@@ -9,8 +9,8 @@
 ## 发布前清单
 
 - [x] 加入 MIT 许可证；版权名使用本机已配置 Git 作者名 `Liyuk`。
-- [ ] 创建公开 GitHub 仓库，更新中英文 README 的 `<OWNER>/<REPO>` 占位符。
-- [ ] CI、skill 结构校验与 Skills CLI 本地发现检查通过。
+- [x] 创建公开 GitHub 仓库并更新中英文 README 的安装地址：<https://github.com/Liyuk/evidence-based-person-analysis>。
+- [x] CI、skill 结构校验与 Skills CLI 本地发现及隔离安装检查通过；Codex CLI 显式调用烟雾测试已记录。测试范围不代表自动加载或相对效果。
 - [ ] 检查 skills.sh/Skills CLI 的仓库索引状态和展示内容。
 - [ ] 准备一个明确标记为合成的演示；不使用真实私聊、照片或账号。
 - [ ] 发布版本号与变更说明；对外明确启发式不是验证过的心理测量工具。
@@ -35,4 +35,4 @@
 3. 中文 Agent、效率工具和提示词社区：短演示配一条实际安装方式。
 4. 根据问题与自愿反馈迭代，再发布新版本。
 
-对外发帖、联系社区和建立远端仓库需要仓库所有者实际操作；本计划提供可用素材，不代表已发布或已联系任何人。传播模板见 [content-kit.md](content-kit.md)。
+远端仓库已公开；本计划提供发布素材和节奏，不代表已向社区发帖或联系任何人。传播模板见 [content-kit.md](content-kit.md)。

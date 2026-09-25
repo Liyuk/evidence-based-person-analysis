@@ -30,6 +30,8 @@ REQUIRED_CATEGORIES = {
     "forensic_crime_prediction",
     "cross_lens_disagreement",
     "counterevidence_update",
+    "explicit_steelman_components",
+    "ambiguous_nonviolent_residence_visit",
 }
 
 

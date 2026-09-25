@@ -10,23 +10,25 @@
 
 ### 安装到 Codex 或其他支持的 Agent
 
-发布到 GitHub 后，用 Skills CLI 选择目标宿主安装（把占位符换成真实仓库）：
+本仓库已公开发布。用 Skills CLI 安装到目标宿主：
 
 ```sh
 # Codex
-npx skills add <OWNER>/<REPO> --skill person-deep-analysis -g -a codex -y
+npx skills add Liyuk/evidence-based-person-analysis --skill person-deep-analysis -g -a codex -y
 
 # Claude Code
-npx skills add <OWNER>/<REPO> --skill person-deep-analysis -g -a claude-code -y
+npx skills add Liyuk/evidence-based-person-analysis --skill person-deep-analysis -g -a claude-code -y
 ```
 
-Skills CLI 支持从仓库选择 skill 和指定宿主；具体选项可见 [CLI 文档](https://github.com/vercel-labs/skills)。上面的远端示例选择 Codex；若要安装到 Claude Code，将 `codex` 替换为 `claude-code`。CI 已从本仓库根目录在临时目录验证两种目标的安装路径、运行时文件完整性和仓库文档隔离；没有验证这两个宿主中的实际自动加载或模型行为。仓库尚未发布时，可先在本地检查发现结果：
+Skills CLI 支持从仓库选择 skill 和指定宿主；具体选项可见 [CLI 文档](https://github.com/vercel-labs/skills)。CI 从本仓库根目录在临时目录验证了两种目标的安装路径、运行时文件完整性和仓库文档隔离。Codex CLI 显式调用烟雾测试见[行为验证报告](evals/results/2026-09-24-codex-cli-runtime-smoke.md)；三例 Skill/普通提示对照和模型盲评分数见[A/B 试跑](evals/results/2026-09-24-network-example-ab-pilot.md)。试跑用于发现规则缺口，不证明稳定效果或心理学效度；尚未验证桌面版自动加载、跨模型一致性或真实用户收益。若想在本地检查发现结果，可从克隆后的仓库根目录运行：
+
+**不需要单独发布 npm 包。** `npx skills` 运行的是安装器 CLI，skill 本身直接从 GitHub 仓库安装；只有未来提供可复用的 JavaScript 库或命令行工具时，才考虑 npm 发布。
 
 ```sh
 npx --yes skills add . --list
 ```
 
-然后从仓库根目录手动安装到 Codex：
+手动安装到 Codex：
 
 ```sh
 mkdir -p ~/.codex/skills
@@ -58,12 +60,12 @@ cp -R ./skills/person-deep-analysis ~/.claude/skills/
 
 | 项目取向 | 常见交付 | 本项目的边界 |
 |---|---|---|
-| [goutoujunshi](https://github.com/shengjidaguai-china/goutoujunshi) | 关系困境支持、权衡和行动建议 | 先做单人材料分析，不替用户决定关系方案 |
-| 本次比较的聊天档案/关系分析工具 | 从聊天和多轮互动归纳双方模式 | 以用户当前提供的材料为入口，不要求导入或长期保存档案 |
-| 本次比较的伴侣咨询/冲突处理框架 | 双方沟通、修复和干预建议 | 关系互动只是可选扩展，主线是理解用户提供的单人材料 |
-| 本项目 | 观察 → 候选解释 → 依据 → 替代解释 → 未知 | 信息量自适应；不把框架标签当成事实 |
+| [goutoujunshi](https://github.com/shengjidaguai-china/goutoujunshi) | 关系困境支持、权衡和行动建议 | 不默认给关系推进或退出方案 |
+| [Analyze Romantic Relationships](https://github.com/jeejohn/analyze-romantic-relationships) | 关系叙述、聊天和时间线的证据判断与决策支持 | 不以双方关系裁决为默认交付 |
+| [Person Behavior Analysis](https://github.com/wangguofeng728/person-behavior-analysis-skill) | 长期聊天档案、跨时段模式、相似事件检索与情境推演 | 不要求导入长期档案；聚焦当前有限材料 |
+| 本项目 | 个人简介、自述和少量互动中的观察、有限解释与未知 | 多视角按需启用；不把理论镜头当独立佐证 |
 
-在本次比较的项目中，这套工作流的定位差异是：8 条启发式用于组织核实问题，M1–M5 按需分析需求、自我呈现、本人报告的经验、优势成本与互动；用户明确要求时，可用心理动力学、人本/需求、发展、CBT 等有限镜头并列解释与未知。法证/犯罪心理只提供证据纪律，不做犯罪或危险性预测。启发式未经本仓库验证为因果规律，多流派输出也不代表心理效度。更多来源见[比较研究](docs/research/github-comparable-projects.md)和[心理学依据](docs/research/multilens-psychology-evidence.md)。
+“证据优先”“保留未知”和“提供替代解释”并非本项目独有。本项目的差异是默认从**用户当前提供的有限个人材料**出发，回答材料支持什么、还缺什么；不要求长期聊天档案，也不默认给关系决策建议。这个定位来自对八个公开仓库的有限样本比较，不代表全生态唯一。用户明确要求时，才用心理动力学、人本/需求、发展和描述性 CBT 等镜头组织问题；法证/犯罪心理只提供证据边界，不作犯罪或危险性预测。更多来源见[比较研究](docs/research/github-comparable-projects.md)和[心理学依据](docs/research/multilens-psychology-evidence.md)。
 
 ## 合成示例
 
