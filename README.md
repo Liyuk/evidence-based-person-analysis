@@ -20,9 +20,9 @@ npx skills add Liyuk/evidence-based-person-analysis --skill person-deep-analysis
 npx skills add Liyuk/evidence-based-person-analysis --skill person-deep-analysis -g -a claude-code -y
 ```
 
-Skills CLI 支持从仓库选择 skill 和指定宿主；具体选项可见 [CLI 文档](https://github.com/vercel-labs/skills)。CI 从本仓库根目录在临时目录验证了两种目标的安装路径、运行时文件完整性和仓库文档隔离。Codex CLI 显式调用烟雾测试见[行为验证报告](evals/results/2026-09-24-codex-cli-runtime-smoke.md)；三例 Skill/普通提示对照和模型盲评分数见[A/B 试跑](evals/results/2026-09-24-network-example-ab-pilot.md)。试跑用于发现规则缺口，不证明稳定效果或心理学效度；尚未验证桌面版自动加载、跨模型一致性或真实用户收益。若想在本地检查发现结果，可从克隆后的仓库根目录运行：
+Skills CLI 支持从仓库选择 skill 和指定宿主；具体选项可见 [CLI 文档](https://github.com/vercel-labs/skills)。CI 从本仓库根目录在临时目录验证了两种目标的安装路径、运行时文件完整性和仓库文档隔离。Codex CLI 显式调用、一次项目级隐式触发烟雾测试见[行为验证报告](evals/results/2026-09-24-codex-cli-runtime-smoke.md)；三例 Skill/普通提示对照和单模型盲化评分见[A/B 试跑](evals/results/2026-09-24-network-example-ab-pilot.md)。试跑用于发现规则缺口，不证明稳定效果或心理学效度；尚未验证桌面版自动加载、跨模型一致性或真实用户收益。若想在本地检查发现结果，可从克隆后的仓库根目录运行：
 
-**不需要单独发布 npm 包。** `npx skills` 运行的是安装器 CLI，skill 本身直接从 GitHub 仓库安装；只有未来提供可复用的 JavaScript 库或命令行工具时，才考虑 npm 发布。
+`npx skills` 是安装器 CLI，skill 本身直接从 GitHub 仓库安装，不需要单独发布 npm 包。只有未来提供可复用的 JavaScript 库或命令行工具时，才考虑 npm 发布。
 
 ```sh
 npx --yes skills add . --list

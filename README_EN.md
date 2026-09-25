@@ -16,9 +16,9 @@ npx skills add Liyuk/evidence-based-person-analysis --skill person-deep-analysis
 npx skills add Liyuk/evidence-based-person-analysis --skill person-deep-analysis -g --agent claude-code -y
 ```
 
-The repository has passed CI checks for Skills CLI discovery and isolated Codex/Claude Code installation layouts. A Codex CLI explicit-invocation smoke test is recorded in the [behavior report](evals/results/2026-09-24-codex-cli-runtime-smoke.md); a three-case Skill/baseline pilot with model-based blind scoring is in the [A/B report](evals/results/2026-09-24-network-example-ab-pilot.md). The pilot helped find and fix a proportionality issue, but does not establish stable gains or psychological validity. Desktop auto-loading, cross-model consistency, and real-user outcomes remain unevaluated. To check discovery from a local clone:
+The repository has passed CI checks for Skills CLI discovery and isolated Codex/Claude Code installation layouts. A Codex CLI explicit-invocation smoke test plus one project-level implicit-trigger check is recorded in the [behavior report](evals/results/2026-09-24-codex-cli-runtime-smoke.md); a three-case Skill/baseline pilot with single-model blind scoring is in the [A/B report](evals/results/2026-09-24-network-example-ab-pilot.md). The pilot helped find and fix a proportionality issue, but does not establish stable gains or psychological validity. Desktop auto-loading, cross-model consistency, and real-user outcomes remain unevaluated. To check discovery from a local clone:
 
-**You do not need to publish this Skill as an npm package.** `npx skills` runs the installer CLI; the Skill itself is installed directly from GitHub. Consider npm only if the project later ships a reusable JavaScript library or command-line tool.
+`npx skills` is the installer CLI; the Skill itself is installed directly from GitHub, so a separate npm package is not needed. Consider npm only if the project later ships a reusable JavaScript library or command-line tool.
 
 ```sh
 npx --yes skills add . --list
