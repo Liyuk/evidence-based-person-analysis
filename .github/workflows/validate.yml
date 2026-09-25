@@ -1,0 +1,28 @@
+name: Validate skill repository
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  structure-and-discovery:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: Validate repository and skill structure
+        run: python scripts/validate_skill.py
+      - name: Validate repeatable behavior scenarios
+        run: python scripts/validate_evals.py
+      - name: Verify Skills CLI discovers exactly the packaged skill
+        run: python scripts/check_skill_discovery.py
+      - name: Verify isolated Codex and Claude Code target installations
+        run: python scripts/check_skill_installation.py
