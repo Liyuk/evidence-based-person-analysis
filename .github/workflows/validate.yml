@@ -22,6 +22,10 @@ jobs:
         run: python scripts/validate_skill.py
       - name: Validate repeatable behavior scenarios
         run: python scripts/validate_evals.py
+      - name: Validate public-safety behavior scenarios
+        run: python scripts/validate_safety_evals.py
+      - name: Validate interaction-risk acceptance cases
+        run: python scripts/validate_interaction_risk_evals.py
       - name: Verify Skills CLI discovers exactly the packaged skill
         run: python scripts/check_skill_discovery.py
       - name: Verify isolated Codex and Claude Code target installations

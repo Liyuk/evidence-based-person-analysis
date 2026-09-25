@@ -1,76 +1,55 @@
-# Person Deep Analysis
+# Interaction Risk Analysis
 
-**Don't guess what's in someone's mind. Separate the evidence, hypotheses, and unknowns.**
+**Deconstruct interactions involving scams, manipulation, abuse, or bullying. Keep the decision with the user.**
 
-An Agent Skill for analyzing self-descriptions, profiles, selected chat excerpts, interactions, and fictional characters while separating textual evidence, limited interpretations, and unknowns. Chat analysis uses relevant excerpts rather than requiring a complete archive. Fictional-character analysis stays within how the work portrays a character and does not infer an author's psychology. It is not for diagnosing real people, predicting relationship outcomes, or making decisions for the user. The workflow and examples are primarily in Chinese; English inputs can be analyzed, and you can request an English response.
+An Agent Skill for ordinary people dealing with suspicious interactions, romance scams, coercion, emotional manipulation or abuse, and interpersonal bullying. It separates what was said, what happened, how events unfolded, the effects of behavior, possible purposes, counterevidence, and unknowns. Models already recognize many patterns; the Skill supplies a repeatable prompt method for making those judgments inspectable and revisable, rather than treating a familiar label as the answer. It does not diagnose people or decide who is a criminal.
+
+[Eight paired scenario demos](docs/demos/README.md) preserve historical outputs from ordinary Codex and explicit `$person-analysis` runs before the rename, using synthetic prompts grounded in official public guidance.
 
 ## Install
 
-Install the published skill with [Skills CLI](https://github.com/vercel-labs/skills):
+This repository provides one installable Skill: `interaction-risk-analysis`.
+
+For Codex:
 
 ```sh
-# Codex
-npx skills add Liyuk/evidence-based-person-analysis --skill person-deep-analysis -g --agent codex -y
-
-# Claude Code
-npx skills add Liyuk/evidence-based-person-analysis --skill person-deep-analysis -g --agent claude-code -y
+npx skills add Liyuk/interaction-risk-analysis --skill interaction-risk-analysis -g -a codex -y
 ```
 
-The repository has passed CI checks for Skills CLI discovery and isolated Codex/Claude Code installation layouts. A Codex CLI smoke test with explicit invocation and one project-level implicit-trigger check is recorded in the [behavior report](evals/results/2026-09-24-codex-cli-runtime-smoke.md); chat/fiction analysis is covered in a [scope-expansion smoke test](evals/results/2026-09-25-scope-expansion-smoke.md); a three-case Skill/baseline pilot with single-model blind scoring is in the [A/B report](evals/results/2026-09-24-network-example-ab-pilot.md); fraud/agency forward tests are summarized in the [specialized report](evals/results/2026-09-24-fraud-agency-forward-test.md). These small pilots helped find and fix rule gaps but do not establish stable gains or psychological validity. Desktop auto-loading, cross-model consistency, and real-user outcomes remain unevaluated. To check discovery from a local clone:
-
-`npx skills` is the installer CLI; the Skill itself is installed directly from GitHub, so a separate npm package is not needed. Consider npm only if the project later ships a reusable JavaScript library or command-line tool.
+For Claude Code:
 
 ```sh
-npx --yes skills add . --list
+npx skills add Liyuk/interaction-risk-analysis --skill interaction-risk-analysis -g -a claude-code -y
 ```
 
-For a manual Codex install:
+## How it works
 
-```sh
-mkdir -p ~/.codex/skills
-cp -R ./skills/person-deep-analysis ~/.codex/skills/
-```
-
-The repository has been checked for local Skills CLI discovery and sandboxed Codex and Claude Code installs from the repository root. These checks verify destination layout, runtime files, and exclusion of repository-only documents, not automatic loading or model behavior inside either host. To target Claude Code with Skills CLI, replace `codex` with `claude-code`.
-
-For a manual Claude Code install:
-
-```sh
-mkdir -p ~/.claude/skills
-cp -R ./skills/person-deep-analysis ~/.claude/skills/
-```
-
-## Try it
+For a multi-event romance-investment scenario, the Skill can lay out the timeline, distinguish an identity claim from verified facts, and explain why a move off-platform, blocked verification, secrecy, and urgent payment together deserve caution. It can then separate a behavior's practical effect from possible intent, identify what evidence could distinguish competing explanations, and offer next steps. A single suspicious phrase is not enough to infer a stable personality or repeated pattern.
 
 ```text
-Use $person-deep-analysis on this profile. Separate direct observations from interpretations, give evidence and a plausible alternative for each main hypothesis, and state what remains unknown. Do not diagnose; narrow the analysis if the evidence is sparse.
+$interaction-risk-analysis
+Use this method to deconstruct the interaction: build an event timeline; separate quotes, claims, observed behavior, and inference; explain the behavior's practical effects and possible purposes with evidence, counterevidence, alternatives, and unknowns. Distinguish sequence from causation and effect from intent. Say what evidence would change the assessment, then offer optional responses. Do not jump to a familiar label or decide the case for me.
 ```
 
-For a deeper comparison, explicitly ask for a multi-perspective steelman report. The skill should identify which lenses fit the evidence, present supported explanations and alternatives, and leave unresolved disagreements visible.
+The project grew from earlier person-analysis work, but the current Skill is named for its public task: analyzing interaction risks. It asks the model to make evidence and competing explanations inspectable; it does not claim a unique detection ability.
 
-You can also ask it to analyze selected chat excerpts or fictional characters. For chats, preserve speaker labels and chronology, and distinguish multiple messages within one event from independent repeated events. For fiction, cite scenes and separate what the work states from interpretations of the character and the story's narrative function.
+## Scope and limits
 
-## Good fit
+Use it for romance/investment and job scams, impersonation, credential requests, recovery scams, emotional blackmail, coercion, isolation, monitoring, workplace bullying, and bounded profile or relationship-material analysis. It also tests false positives such as a single memory disagreement or ordinary constructive feedback.
 
-- Clarify preferences stated in a short personal profile or selected chat excerpt.
-- Compare interactions across independent scenes without treating every message as a separate event.
-- Analyze how a novel, film, show, or game portrays a character and their development.
-- Identify what additional context would change an interpretation.
+This is not an automatic detector, clinical diagnosis, legal finding, investigation, bank fraud system, or fund-recovery service. It cannot establish identity, criminal liability, or hidden motives from chat alone. Psychology is an optional explanatory lens, not proof. In urgent situations, address immediate financial or personal safety first. Avoid sharing unnecessary names, account details, or full private chats.
 
-It can help organize observable warning signs in suspected romance/investment scams or coercive relationship behavior and present user-chosen support options. It does not verify identities, guarantee recovery, replace professional/crisis support, diagnose NPD, or generate manipulation or fraud tactics. Not for inferring trauma or sensitive traits, predicting relationship outcomes, or profiling criminal risk.
+## Evaluation
 
-## What makes it different
+The repository contains 20 synthetic acceptance cases with expected and forbidden behaviors, including causal and purpose inference. These cases have not yet been run individually with the renamed `interaction-risk-analysis` ID. Eight scenario demos preserve ordinary Codex and explicit Skill outputs from before the rename, when the Skill ID was `person-analysis`; they are historical results, not reruns of the current ID. The [historical acceptance report](evals/results/2026-09-25-person-analysis-anti-fraud-acceptance.md) records those runs and their limits.
 
-In our limited sample of eight public repositories, evidence-first analysis, alternatives, and uncertainty also appear in adjacent projects. For example, [Analyze Romantic Relationships](https://github.com/jeejohn/analyze-romantic-relationships) focuses on relationship claims and decision support, while [Person Behavior Analysis](https://github.com/wangguofeng728/person-behavior-analysis-skill) focuses on long-term chat records and longitudinal behavior hypotheses. This skill works from the material selected for the current request—self-descriptions, chat excerpts, interactions, or fictional work—and states what it supports and what remains unknown. It does not require a persistent chat archive or default to relationship decisions; fictional-character conclusions stay within the text. This sample-based positioning does not claim ecosystem-wide uniqueness. See the [comparison research](docs/research/github-comparable-projects.md) for scope and sources.
+```sh
+python3 scripts/validate_skill.py
+python3 scripts/validate_evals.py
+python3 scripts/validate_safety_evals.py
+python3 scripts/validate_interaction_risk_evals.py
+python3 scripts/check_skill_discovery.py
+python3 scripts/check_skill_installation.py
+```
 
-Its heuristics are prompts for questions, not validated causal laws or clinical measures. It is not a diagnostic or crisis-response tool. If the material indicates imminent danger, prioritize real-world safety support over profile analysis.
-
-Remove names, handles, locations, and other identifying details from third-party material when possible. The person seeking help retains authority over their boundaries and next steps; the skill should support choices without blaming or directing them. For local hotlines, legal deadlines, or platform-specific actions, verify current official sources for the user's location. This skill cannot control how the host platform stores or processes input; follow that platform's data settings.
-
-An explicitly requested multi-perspective report can compare psychodynamic, humanistic/needs, developmental, and descriptive CBT lenses. Each is treated as a limited hypothesis generator, not an independent test of a person's inner life. Forensic psychology contributes evidence discipline only; the skill does not profile or predict crime.
-
-## Contributing
-
-Read [CONTRIBUTING.md](CONTRIBUTING.md). Evaluation cases must be synthetic or carefully de-identified with permission; never submit private messages, photos, account details, or identifying information. See the [comparison research](docs/research/github-comparable-projects.md), [evaluation limits](evals/README.md), and [primary-source note on fraud/coercive-control support](docs/research/fraud-and-coercive-control-guidance.md).
-
-Licensed under the [MIT License](LICENSE).
+The GitHub repository slug and installable Skill ID are `interaction-risk-analysis`. License: MIT.

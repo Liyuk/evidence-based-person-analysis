@@ -22,11 +22,12 @@ description: >-
 4. **用启发式生成核实问题**：读取 `references/axioms.md` 和 `references/signal-mapping.md`。它们只帮助提出问题，不是信号分类器；不得把单一信号直接转换成心理结论。
 5. **选择分析模块**：依材料选择 M1–M5，不要求每次全部输出。读取对应的 `modules/` 文件。M3 仅在当事人明确报告相关经验时使用；没有这类材料就省略，不从当前行为反推经历。
 6. **选择解释模式**：普通请求保持简洁。只有用户明确要求多流派、多视角或 steelman 深入报告时，才读取 `references/perspectives/steelman-report.md`，并只加载与材料相关的镜头；用户要求列全时，对不适用的镜头简短说明信息不足。各镜头是提出问题的工具，不是评分器或彼此独立的验证者。
-7. **形成与比较候选解释**：以观察为起点，为每个可支持的解释列出具体依据、额外假设、最强合理替代解释、反例及未知。用户要求简短时压缩表达，但不省略这几项；若材料不支持其中一项，明确写“材料不足”或“不适用”。Steelman 不等于虚假平衡：不强造替代解释、不宣称等概率；不同镜头有冲突时保留分歧，不投票、不融合成人格定论。
-8. **决定是否扩展**：两人及以上的现实互动或聊天记录可读取 `dlc/relationship-dynamics.md`；某人讲述事件、回忆或辩解时可读取 `dlc/narrative-identity.md`；分析小说、影视、戏剧、游戏等虚构人物时读取 `dlc/fictional-character-analysis.md`。同一事件中的多条聊天消息只算一个互动场景；只有多个可比较的独立场景才能支持重复模式。单方描述另一人的内容时，只分析被描述的互动和叙述，不据此确认缺席者的人格。虚构角色结论限定在作品文本，不从角色推断作者、演员或现实原型的心理与经历。
-9. **安全与主体性优先**：遇到自伤、暴力、胁迫或跟踪线索，暂停常规画像和理论推演，先确认现实安全并尊重用户对下一步的选择。若只是一次含糊、非暴力的上门意向且时间不明，先直接简短询问用户当前是否安全、对方是否在附近或说明来访时间；不要只陈述这些信息未知，也不自动升级为高强度安全措施。细则见 `references/safety-boundaries.md`。疑似诈骗/操控读取对应专项参考。
+7. **识别反复剥削/操控行为时**：如果用户明确提到黑暗三联征、或正在评估持续欺骗、算计利用、特权索取、冷酷伤害等模式，可读取 `references/perspectives/dark-triad-behavioral-screening.md`。将构念当作研究视角，按具体行为、重复性、影响和反证整理，不据文本判定某人“属于”某型，也不据此预测犯罪或危险等级。
+8. **形成与比较候选解释**：以观察为起点，为每个可支持的解释列出具体依据、额外假设、最强合理替代解释、反例及未知。用户要求简短时压缩表达，但不省略这几项；若材料不支持其中一项，明确写“材料不足”或“不适用”。Steelman 不等于虚假平衡：不强造替代解释、不宣称等概率；不同镜头有冲突时保留分歧，不投票、不融合成人格定论。
+9. **决定是否扩展**：两人及以上的现实互动或聊天记录可读取 `dlc/relationship-dynamics.md`；某人讲述事件、回忆或辩解时可读取 `dlc/narrative-identity.md`；分析小说、影视、戏剧、游戏等虚构人物时读取 `dlc/fictional-character-analysis.md`。同一事件中的多条聊天消息只算一个互动场景；只有多个可比较的独立场景才能支持重复模式。单方描述另一人的内容时，只分析被描述的互动和叙述，不据此确认缺席者的人格。虚构角色结论限定在作品文本，不从角色推断作者、演员或现实原型的心理与经历。
+10. **安全与主体性优先**：遇到自伤、暴力、胁迫或跟踪线索，暂停常规画像和理论推演，先确认现实安全并尊重用户对下一步的选择。若只是一次含糊、非暴力的上门意向且时间不明，先直接简短询问用户当前是否安全、对方是否在附近或说明来访时间；不要只陈述这些信息未知，也不自动升级为高强度安全措施。细则见 `references/safety-boundaries.md`。疑似诈骗/操控读取对应专项参考。
 
-以上推理统一遵循 `references/methodology-and-limitations.md`；调用依恋概念时再读取 `references/attachment-styles.md`。多视角模式先读 `references/perspectives/steelman-report.md`，再按触发条件读取：重复关系/情绪主题读 `psychodynamic.md`；价值、选择、成长或需求读 `humanistic-and-needs.md`；明确的人生阶段/时间线读 `developmental-psychology.md`；本人报告的想法—情绪—行为链读 `cbt-descriptive.md`；法律、犯罪预测诉求或证据来源问题读 `forensic-evidence-boundaries.md`。犯罪/危险预测请求用于执行拒绝与边界，不生成风险侧写。
+以上推理统一遵循 `references/methodology-and-limitations.md`；调用依恋概念时再读取 `references/attachment-styles.md`。多视角模式先读 `references/perspectives/steelman-report.md`，再按触发条件读取：重复关系/情绪主题读 `psychodynamic.md`；价值、选择、成长或需求读 `humanistic-and-needs.md`；明确的人生阶段/时间线读 `developmental-psychology.md`；本人报告的想法—情绪—行为链读 `cbt-descriptive.md`；黑暗三联征相关请求读 `dark-triad-behavioral-screening.md`；法律、犯罪预测诉求或证据来源问题读 `forensic-evidence-boundaries.md`。犯罪/危险预测请求用于执行拒绝与边界，不生成风险侧写。
 
 ## 八条启发式与五个模块
 

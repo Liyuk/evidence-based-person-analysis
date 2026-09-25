@@ -8,10 +8,25 @@ import subprocess
 import sys
 
 
-EXPECTED = "person-deep-analysis"
+EXPECTED = "interaction-risk-analysis"
 SKILLS_CLI_VERSION = "1.7.0"
 TIMEOUT_SECONDS = 120
 ANSI_ESCAPE_RE = re.compile(r"\x1b\[[0-?]*[ -/]*[@-~]")
+SKILL_LINE_RE = re.compile(r"^\s*([a-z0-9]+(?:-[a-z0-9]+)*)\s*$")
+
+
+def parse_available_skills(output: str) -> set[str]:
+    start = output.find("Available Skills")
+    end = output.find("Use --skill", start)
+    if start < 0 or end < 0:
+        return set()
+    names: set[str] = set()
+    for line in output[start:end].splitlines()[1:]:
+        clean = line.replace("│", " ").strip()
+        match = SKILL_LINE_RE.fullmatch(clean)
+        if match:
+            names.add(match.group(1))
+    return names
 
 
 def main() -> int:
@@ -32,8 +47,12 @@ def main() -> int:
     if not count_match or int(count_match.group(1)) != 1:
         print("Expected Skills CLI to discover exactly one skill", file=sys.stderr)
         return 1
-    if EXPECTED not in normalized_output:
-        print(f"Expected Skills CLI to list {EXPECTED!r}", file=sys.stderr)
+    available = parse_available_skills(normalized_output)
+    if available != {EXPECTED}:
+        print(
+            f"Expected Skills CLI to list only {EXPECTED!r}; found {sorted(available)}",
+            file=sys.stderr,
+        )
         return 1
     print(f"Discovery check passed: exactly {EXPECTED} is available.")
     return 0

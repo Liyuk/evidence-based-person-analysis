@@ -1,116 +1,92 @@
-# 人际深度解析 · Person Deep Analysis
+# 互动风险识别与解构
 
-**不替你猜心，帮你把材料拆成证据、假设和未知。**
+**看清诈骗、操控、虐待与霸凌中的互动风险；依据行为解构，不替人定性。**
 
-一个遵循 Agent Skills 格式的文本分析 skill：帮助你分析自述、个人介绍、选取的聊天片段、互动和虚构角色文本，区分材料事实、有限解释与未知。长聊天先限定议题或时间范围，只取必要片段；不要求导入完整档案。虚构角色分析只讨论作品如何呈现角色，不由角色推断作者心理。主要面向中文材料；不用于给现实人物下诊断、预测关系结局或替你做决定。
+这是一个面向普通人的 Agent Skill。它帮助你分析可疑互动、网恋诈骗、情绪操控、胁迫、情感虐待和人际霸凌：分清原话、行为、事件顺序、重复模式、行为效果、可能目的、反证和未知，再给可独立核验的选择。不诊断人格，也不替你裁定谁是“坏人”。模型本身已有模式识别能力；Skill 提供一套提示方法，让判断更有结构、可检查和修正，不把熟悉的标签直接当答案。
 
-[English overview](README_EN.md) · [相似项目与差异研究](docs/research/github-comparable-projects.md) · [多视角心理学依据](docs/research/multilens-psychology-evidence.md) · [反诈/主体性支持依据](docs/research/fraud-and-coercive-control-guidance.md) · [多视角用途评审](docs/research/multilens-design-review.md) · [Blog 项目模块](docs/launch/blog-project-module.md) · [回归场景](evals/scenarios.json) · [贡献指南](CONTRIBUTING.md) · [MIT License](LICENSE)
+[English](README_EN.md) · [八种场景的实际对照演示](docs/demos/README.md) · [相邻项目研究](docs/research/interaction-risk-skills-landscape.md) · [验收场景](evals/interaction-risk-cases.json) · [行为验收标准](evals/interaction-risk-acceptance.md) · [博客项目介绍](docs/launch/blog-project-module.md) · [MIT License](LICENSE)
 
-## 60 秒上手
+## 安装
 
-### 安装到 Codex 或其他支持的 Agent
+本仓库只有一个可安装 Skill：`interaction-risk-analysis`（互动风险识别与解构）。
 
-本仓库已公开发布。用 Skills CLI 安装到目标宿主：
-
-```sh
-# Codex
-npx skills add Liyuk/evidence-based-person-analysis --skill person-deep-analysis -g -a codex -y
-
-# Claude Code
-npx skills add Liyuk/evidence-based-person-analysis --skill person-deep-analysis -g -a claude-code -y
-```
-
-Skills CLI 支持从仓库选择 skill 和指定宿主；具体选项可见 [CLI 文档](https://github.com/vercel-labs/skills)。CI 从本仓库根目录在临时目录验证了两种目标的安装路径、运行时文件完整性和仓库文档隔离。Codex CLI 显式调用与一次项目级隐式触发见[行为验证报告](evals/results/2026-09-24-codex-cli-runtime-smoke.md)；聊天/虚构角色分析见[范围扩展试跑](evals/results/2026-09-25-scope-expansion-smoke.md)；三例 Skill/普通提示对照和单模型盲化评分见[A/B 试跑](evals/results/2026-09-24-network-example-ab-pilot.md)；反诈/主体性专项复测见[专项结果](evals/results/2026-09-24-fraud-agency-forward-test.md)。这些小样本试跑用于发现规则缺口，不证明稳定效果或心理学效度；尚未验证桌面版自动加载、跨模型一致性或真实用户收益。若想在本地检查发现结果，可从克隆后的仓库根目录运行：
-
-`npx skills` 是安装器 CLI，skill 本身直接从 GitHub 仓库安装，不需要单独发布 npm 包。只有未来提供可复用的 JavaScript 库或命令行工具时，才考虑 npm 发布。
+安装到 Codex：
 
 ```sh
-npx --yes skills add . --list
+npx skills add Liyuk/interaction-risk-analysis --skill interaction-risk-analysis -g -a codex -y
 ```
 
-手动安装到 Codex：
+安装到 Claude Code：
 
 ```sh
-mkdir -p ~/.codex/skills
-cp -R ./skills/person-deep-analysis ~/.codex/skills/
+npx skills add Liyuk/interaction-risk-analysis --skill interaction-risk-analysis -g -a claude-code -y
 ```
 
-Claude Code 手动安装时，使用其个人技能目录：
+## 它怎样拆解问题
+
+例如，一位网恋对象先转到其他平台，之后提出投资；当你要求核实公司时，对方反问“你信不信我”，最后催你当晚转账并保密。Skill 会按时间还原事件，把身份主张和已核实事实分开，解释转移渠道、限制核验、保密和催款如何组成风险链；同时列出仍不知道什么、什么独立证据会改变判断，以及可以先采取的步骤。
+
+使用时可以直接描述经历，也可以把这段分析方法带进提示词：
+
+```text
+$interaction-risk-analysis
+请按这套方法解构这些互动：按时间拆事件，分清原话、事实主张、可观察行为和推断；分析行为产生的实际效果，以及可能的因果、立场或目的，并给出依据、反证、合理替代解释和未知。区分“之后发生”与“因此导致”、效果与意图；说明哪些新证据会改变判断，再给可选回应。不要先套熟悉标签，也不要替我下结论。
+```
+
+## 分析方法
+
+复杂场景按以下顺序处理：
+
+1. 标明材料来源、说话人、时间范围和上下文缺口。
+2. 拆成“发生了什么 → 对方如何回应 → 后来发生什么 → 有何影响”的事件单元。
+3. 区分单一线索、同一事件的连续升级和跨事件重复模式。
+4. 检查行为实际改变了什么，再提出可能的立场或目的；把效果、动机和因果关系分开，列出依据、反证、合理替代解释与未知。
+5. 指出什么信息能区分这些解释，并独立核验身份、平台、交易或承诺。
+6. 先处理迫近的资金、账户和人身风险；应对方式由用户选择。
+
+这不是让模型关闭已有判断能力，而是让它把识别到的线索摊开说明，避免直接跳到“这是某种套路”的结论。实际运行中，普通模型本身也可能答得很好；项目主张的是一套可复用的分析纪律，不是 Skill 独有的检测能力。
+
+这套方法沿用项目早期 `person-analysis` 工作中的人物与互动解构经验，并纳入反诈、安全、霸凌和可选心理学视角。重点是让用户看见线索怎样通向假设，再自行核对和决定；Skill 不声称拥有普通模型没有的“识人”能力。
+
+## 适用范围
+
+- 网恋/投资诈骗、杀猪盘、刷单与兼职骗局、传销/资金盘、冒充权威、凭证索取和追回资金二次诈骗。
+- 情绪勒索、胁迫、隔离控制、监控、反复否认现实及越界后的惩罚。
+- 职场、学校、群聊和社交网络中的重复羞辱、排斥、造谣、报复和权力滥用。
+- 有限的人物自述、关系互动、聊天片段或虚构角色分析；明确区分证据与理论解释。
+- 误报对照：单次记忆分歧、正常反馈或一次疏忽不足以单独证明操控、诈骗或霸凌。
+
+## 边界
+
+这不是自动检测器、心理诊断、法律裁决、侦查、银行风控或资金追回服务。不保证发现所有风险。只凭聊天通常不能确认身份、犯罪事实或隐藏动机。心理学视角只能帮助提出有限解释，不能诊断或预测危险。遇到急迫危险，先处理现实安全；提供地区性热线或法律步骤前需要核对当地官方来源。不要提交不必要的姓名、账号、联系方式或完整私聊；Skill 不能控制宿主如何处理输入。
+
+## 场景与验收
+
+仓库维护 20 个带有预期行为和禁忌项的合成验收场景，覆盖事件解构、因果/目的推断、误报控制、反证更新、安全步骤和用户主体性。**这 20 个场景目前尚未使用新 ID `interaction-risk-analysis` 逐例运行。**另有八个按四类平衡的合成演示，保留更名前以 `$person-analysis` 运行的普通 Codex / Skill 对照输出；这些是旧 Skill ID 下的历史结果，不是新 ID 的重复试跑。[场景演示](docs/demos/README.md)、[历次宿主验收记录](evals/results/2026-09-25-person-analysis-anti-fraud-acceptance.md)和[解构方法试跑](evals/results/2026-09-25-decomposition-method-evaluation.md)都注明测试条件和结论边界。
+
+可运行仓库检查：
 
 ```sh
-mkdir -p ~/.claude/skills
-cp -R ./skills/person-deep-analysis ~/.claude/skills/
+python3 scripts/validate_skill.py
+python3 scripts/validate_evals.py
+python3 scripts/validate_safety_evals.py
+python3 scripts/validate_interaction_risk_evals.py
+python3 scripts/check_skill_discovery.py
+python3 scripts/check_skill_installation.py
 ```
 
-### 使用
+## 目录结构
 
 ```text
-用 $person-deep-analysis 看这段自我介绍。请区分原话、观察和解释，给主要判断列出依据、替代解释与未知；不要诊断，材料不够就收敛。
+skills/interaction-risk-analysis/          唯一可安装 Skill
+  modules/                                  旧版 M1–M5 人物分析模块
+  dlc/                                      按需关系、叙事与虚构角色分析
+  references/                               解构、反诈、反操控、安全和理论参考
+evals/interaction-risk-cases.json          当前验收案例
+evals/results/                              宿主运行与历史评估记录
+archive/person-deep-analysis/                旧版原始包，保留追溯
+docs/                                       竞品研究、方法依据和项目说明
+scripts/                                    结构、场景、发现及安装检查
 ```
 
-也可以分析聊天摘录或虚构角色：
-
-```text
-按时间顺序分析下面三段工作聊天。区分原话、行为和解释；判断这些消息属于几次独立事件，不要把一次交接概括成稳定人格。指出还缺什么，并提醒我哪些隐私应先删掉。
-```
-
-```text
-分析小说中角色在三个关键场景里的选择和变化。请引用情节，区分文本事实、角色解释和叙事功能；不要诊断角色或推断作者经历。
-```
-
-要比较解释而非只做简析，可再说：
-
-```text
-请进入多视角 Steelman 模式。只使用材料支持的心理学视角，分别列出依据、额外假设、最强合理替代解释和未知；不适用的流派说明原因，保留冲突，不要强行合成结论。
-```
-
-仓库维护者可运行 `python3 scripts/validate_skill.py` 检查文件结构、YAML frontmatter 和本地 Markdown 链接，并运行 `python3 scripts/validate_evals.py` 检查可复用行为场景。安装前也可浏览 `skills/person-deep-analysis/SKILL.md`。
-
-## 它和相似项目有什么不同？
-
-| 项目取向 | 常见交付 | 本项目的边界 |
-|---|---|---|
-| [goutoujunshi](https://github.com/shengjidaguai-china/goutoujunshi) | 关系困境支持、权衡和行动建议 | 不默认给关系推进或退出方案 |
-| [Analyze Romantic Relationships](https://github.com/jeejohn/analyze-romantic-relationships) | 关系叙述、聊天和时间线的证据判断与决策支持 | 不以双方关系裁决为默认交付 |
-| [Person Behavior Analysis](https://github.com/wangguofeng728/person-behavior-analysis-skill) | 长期聊天档案、跨时段模式、相似事件检索与情境推演 | 不要求导入长期档案；聚焦当前有限材料 |
-| 本项目 | 当前提供的自述、短聊天、互动或虚构角色文本 | 可选反诈/胁迫支持；以行为证据和当事人选择为中心，不诊断或画像犯罪风险 |
-
-“证据优先”“保留未知”和“提供替代解释”并非本项目独有。本项目默认分析用户当前选取的现实人物材料（自述、聊天摘录、互动片段），也支持基于作品文本分析虚构角色；不要求长期聊天档案，也不默认给关系决策建议。它回答材料支持什么、还缺什么，虚构角色解释则限定在文本如何塑造角色。这个定位来自对八个公开仓库的有限样本比较，不代表全生态唯一。用户明确要求时，才用心理动力学、人本/需求、发展和描述性 CBT 等镜头组织问题；法证/犯罪心理只提供证据边界，不作犯罪或危险性预测。更多来源见[比较研究](docs/research/github-comparable-projects.md)和[心理学依据](docs/research/multilens-psychology-evidence.md)。
-
-## 合成示例
-
-> 输入（合成）： “我喜欢独处，但希望伴侣每天联系；忙的时候我会晚些回复。”
->
-> **观察：** 同时表达独处偏好、日常联系期待和延迟回复情境。  
-> **候选解释：** 个人空间与稳定联系可能对她同样重要。  
-> **替代解释：** “每天联系”可能只指简短问候，具体期待尚不清楚。  
-> **未知：** 需要了解双方对频率、忙碌时告知方式的定义；不能据此判断依恋类型。
-
-此示例为虚构文本，不代表真实用户或实证结论。
-
-## 适合与不适合的用途
-
-- **适合**：梳理自我介绍和选取的聊天片段；比较多个独立互动场景；分析小说、影视、游戏等作品如何呈现角色及其变化。
-- **适合**：整理疑似网恋/投资诈骗或关系控制中的可观察信号，了解可选择的安全与求助步骤；支持当事人恢复自己的判断和选择空间。
-- **不适合**：诊断心理障碍、推断创伤或隐私属性、证明某人“是什么样的人”、判断关系必然走向，或处理即时危险。
-
-## 边界与隐私
-
-不诊断、不编造创伤经历、不从孤立信号推断稳定人格或隐私属性。NPD、PUA、杀猪盘等词不能替代对具体行为的核对；遇到疑似诈骗/操控时，Skill 帮助识别行为风险并提供选择式支持，不保证识别身份或追回资金，也不代替专业反诈/危机服务。它拒绝生成操控、欺诈或规避反诈识别的策略。单段互动只描述该次往返；单方叙述不能确认缺席者的人格。分析第三方材料前，尽量移除识别信息；不要提交私密材料作公开案例。Skill 不能控制宿主如何保存或处理输入。遇到迫近的人身危险，优先处理现实安全需求。
-
-## 项目结构
-
-```text
-skills/person-deep-analysis/   可安装 skill 本体（入口、模块、参考和宿主元数据）
-evals/                         行为回归场景、人工复核和待执行的对照验证方案
-scripts/                       结构校验器
-.github/workflows/             持续集成
-CONTRIBUTING.md                贡献和案例隐私规则
-docs/research/                 生态对照与心理学适用边界研究
-docs/launch/                   面向发布的介绍与分享素材
-docs/superpowers/              规格与执行计划
-```
-
-## 参与与授权
-
-欢迎提交问题、改进建议、合成评估案例和翻译。请先阅读 [CONTRIBUTING.md](CONTRIBUTING.md)。项目采用 MIT License，版权声明见 [LICENSE](LICENSE)。
+许可证：MIT。GitHub 仓库与 Skill ID 均为 `interaction-risk-analysis`；GitHub 对原仓库地址保留跳转。
