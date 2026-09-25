@@ -11,6 +11,7 @@ import sys
 EXPECTED = "person-deep-analysis"
 SKILLS_CLI_VERSION = "1.7.0"
 TIMEOUT_SECONDS = 120
+ANSI_ESCAPE_RE = re.compile(r"\x1b\[[0-?]*[ -/]*[@-~]")
 
 
 def main() -> int:
@@ -26,11 +27,12 @@ def main() -> int:
     if result.returncode:
         print(f"Skills CLI exited with status {result.returncode}", file=sys.stderr)
         return result.returncode
-    count_match = re.search(r"Found\s+(\d+)\s+skills?", output, flags=re.IGNORECASE)
+    normalized_output = ANSI_ESCAPE_RE.sub("", output)
+    count_match = re.search(r"Found\s+(\d+)\s+skills?", normalized_output, flags=re.IGNORECASE)
     if not count_match or int(count_match.group(1)) != 1:
         print("Expected Skills CLI to discover exactly one skill", file=sys.stderr)
         return 1
-    if EXPECTED not in output:
+    if EXPECTED not in normalized_output:
         print(f"Expected Skills CLI to list {EXPECTED!r}", file=sys.stderr)
         return 1
     print(f"Discovery check passed: exactly {EXPECTED} is available.")
