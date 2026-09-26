@@ -4,7 +4,7 @@ description: >-
   Use when a user wants to analyze a self-description, profile, selected chat excerpts, interactions, or fictional characters while distinguishing evidence from interpretation; also use for possible romance/investment fraud, coercive relationship behavior, or explicitly requested multi-perspective reports. 当用户想分析自述、个人简介、选取的聊天片段、互动或虚构角色并区分证据与解释，或求助于疑似网恋/投资诈骗、胁迫控制，或明确要求多视角报告时使用；不用于诊断或替用户决定关系走向。
 ---
 
-# 人际深度解析
+# RelationForge · 人际深度解析
 
 ## 目标与边界
 

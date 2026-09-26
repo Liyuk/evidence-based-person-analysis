@@ -5,7 +5,7 @@
 
 本文件记录定向选出的 19 个仓库样本，不推断 GitHub 全站规模或总体分布。两个切片对应不同产品定位，不应简单理解为 19 个直接竞品。仓库内容会变化，结论应视为 2026-09-24 附近的查阅快照。
 
-> **历史资料提示：** 本文中的“当前”“本轮”均指各段落标注的 2026-09-24/25 研究时点，不代表现在的项目状态。旧名称、仓库 slug、测试数量和建议只作为决策记录保留。现在有两个独立运行时入口：[`interaction-risk-analysis`](../../skills/interaction-risk-analysis/SKILL.md) 与 [`person-deep-analysis`](../../skills/person-deep-analysis/SKILL.md)；请以仓库 README 为准。
+> **历史资料提示：** 本文中的“当前”“本轮”均指各段落标注的 2026-09-24/25 研究时点，不代表现在的项目状态。旧名称、仓库 slug、测试数量和建议只作为决策记录保留。当前品牌为 **RelationForge**，现在有两个独立运行时入口：[`interaction-risk-analysis`](../../skills/interaction-risk-analysis/SKILL.md) 与 [`person-deep-analysis`](../../skills/person-deep-analysis/SKILL.md)；请以仓库 README 为准。
 
 ## 摘要
 
@@ -186,7 +186,7 @@
 3. **识骗防操控**：短而有行动感，读起来略像口号，品牌辨识度需再看。
 4. **看清套路，守住选择**：最有人文感，适合作为标语；单独作为仓库名时用途不够直观。
 
-**当时的命名决定（已过期）：** 采用“防骗与反操控”，Skill ID 为 `person-analysis`，仓库 slug 为 `evidence-based-person-analysis`。这些标识已被当前名称取代：**互动风险识别与解构 / `interaction-risk-analysis`**。
+**当时的命名决定（已过期）：** 采用“防骗与反操控”，Skill ID 为 `person-analysis`，仓库 slug 为 `evidence-based-person-analysis`。这些标识已被当前品牌 **RelationForge** 及两个正式 Skill ID（`interaction-risk-analysis`、`person-deep-analysis`）取代。
 
 ### 本轮查阅的一手仓库页面
 

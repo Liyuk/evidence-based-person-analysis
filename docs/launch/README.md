@@ -1,6 +1,6 @@
-# 项目介绍与分享指南
+# RelationForge 项目介绍与分享指南
 
-本项目提供两个可独立安装的 Skill：`interaction-risk-analysis` 用于拆解诈骗、操控、胁迫、虐待和霸凌中的互动风险；`person-deep-analysis` 用于解读自述、个人介绍、选取的聊天/互动材料与虚构角色。两者都区分材料、解释和未知，不诊断人格或替用户决定。涉及催款、凭证或现实威胁时，先处理安全和财务风险。
+**RelationForge** 提供两个可独立安装的 Skill：`interaction-risk-analysis` 用于拆解诈骗、操控、胁迫、虐待和霸凌中的互动风险；`person-deep-analysis` 用于解读自述、个人介绍、选取的聊天/互动材料与虚构角色。两者都区分材料、解释和未知，不诊断人格或替用户决定。涉及催款、凭证或现实威胁时，先处理安全和财务风险。
 
 面向读者的介绍可使用 [博客项目模块](blog-project-module.md)，简短示例见 [分享素材](content-kit.md)，完整入口和独立安装命令见 [项目 README](../../README.md)。
 

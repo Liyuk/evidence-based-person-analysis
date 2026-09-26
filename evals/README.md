@@ -2,7 +2,7 @@
 
 ## 当前两个 Skill
 
-运行时入口分别是 [`interaction-risk-analysis`](../skills/interaction-risk-analysis/SKILL.md) 和 [`person-deep-analysis`](../skills/person-deep-analysis/SKILL.md)。以下评估记录按各自运行时版本和 Skill ID 阅读。
+RelationForge 的运行时入口分别是 [`interaction-risk-analysis`](../skills/interaction-risk-analysis/SKILL.md) 和 [`person-deep-analysis`](../skills/person-deep-analysis/SKILL.md)。以下评估记录按各自运行时版本和 Skill ID 阅读。
 
 `interaction-risk-cases.json` 定义 20 个拆解与安全场景；`interaction-risk-acceptance.md` 是逐例验收锚点。**这 20 例尚未使用当前 Skill ID `interaction-risk-analysis` 逐例运行。**旧 Skill ID `person-analysis` 下的宿主运行记录见[历史报告](results/2026-09-25-person-analysis-anti-fraud-acceptance.md)，关于模型本身已有识别能力及新版解构方法的试跑见[方法评估](results/2026-09-25-decomposition-method-evaluation.md)。八个合成案例另有旧 ID 下普通 Codex / 显式 Skill 的配对输出，见 [`docs/demos/`](../docs/demos/README.md)。运行 `python3 scripts/validate_interaction_risk_evals.py` 检查案例结构。
 

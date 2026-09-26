@@ -4,7 +4,7 @@ description: >-
   Use when someone wants to assess a suspicious interaction, relationship timeline, or repeated behavior involving possible scams, coercion, manipulation, abuse, or bullying. Keep analysis tied to evidence and observable effects, consider competing explanations and possible purposes, and preserve user-chosen verification or safety steps. Do not diagnose or state hidden motives as fact.
 ---
 
-# Interaction Risk Analysis：互动风险识别与解构
+# RelationForge · 互动风险识别与解构
 
 提供一套可复用的互动风险解构方法：从材料和事件出发，检查行为模式及其实际作用，提出有依据、可被反证的因果与目的假设，再把判断转成核验和应对选择。模型本身已有模式识别能力；Skill 的作用是让这些能力按可检查的步骤组织输出，而不是把模型直觉或标签当结论。主要用于诈骗、操控、胁迫、虐待和霸凌风险。
 
