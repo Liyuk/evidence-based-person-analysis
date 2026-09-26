@@ -16,12 +16,12 @@ RelationForge 包含两个可独立安装的 Agent Skill，帮助你把具体材
 
 ## 安装
 
-仓库地址：<https://github.com/Liyuk/interaction-risk-analysis>。按需要选择一个或两个 Skill，分别安装。
+仓库地址：<https://github.com/Liyuk/relation-forge>。按需要选择一个或两个 Skill，分别安装。
 
 | Skill | Codex | Claude Code |
 |---|---|---|
-| 互动风险识别与解构 | `npx skills add Liyuk/interaction-risk-analysis --skill interaction-risk-analysis -g -a codex -y` | `npx skills add Liyuk/interaction-risk-analysis --skill interaction-risk-analysis -g -a claude-code -y` |
-| 人际深度解析 | `npx skills add Liyuk/interaction-risk-analysis --skill person-deep-analysis -g -a codex -y` | `npx skills add Liyuk/interaction-risk-analysis --skill person-deep-analysis -g -a claude-code -y` |
+| 互动风险识别与解构 | `npx skills add Liyuk/relation-forge --skill interaction-risk-analysis -g -a codex -y` | `npx skills add Liyuk/relation-forge --skill interaction-risk-analysis -g -a claude-code -y` |
+| 人际深度解析 | `npx skills add Liyuk/relation-forge --skill person-deep-analysis -g -a codex -y` | `npx skills add Liyuk/relation-forge --skill person-deep-analysis -g -a claude-code -y` |
 
 ## 怎么选
 

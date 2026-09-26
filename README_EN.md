@@ -16,12 +16,12 @@ Both can address concerning relationship interactions. If someone is pressuring 
 
 ## Install
 
-Repository: <https://github.com/Liyuk/interaction-risk-analysis>. Choose either Skill or install both separately.
+Repository: <https://github.com/Liyuk/relation-forge>. Choose either Skill or install both separately.
 
 | Skill | Codex | Claude Code |
 |---|---|---|
-| Interaction Risk Analysis | `npx skills add Liyuk/interaction-risk-analysis --skill interaction-risk-analysis -g -a codex -y` | `npx skills add Liyuk/interaction-risk-analysis --skill interaction-risk-analysis -g -a claude-code -y` |
-| Person Deep Analysis | `npx skills add Liyuk/interaction-risk-analysis --skill person-deep-analysis -g -a codex -y` | `npx skills add Liyuk/interaction-risk-analysis --skill person-deep-analysis -g -a claude-code -y` |
+| Interaction Risk Analysis | `npx skills add Liyuk/relation-forge --skill interaction-risk-analysis -g -a codex -y` | `npx skills add Liyuk/relation-forge --skill interaction-risk-analysis -g -a claude-code -y` |
+| Person Deep Analysis | `npx skills add Liyuk/relation-forge --skill person-deep-analysis -g -a codex -y` | `npx skills add Liyuk/relation-forge --skill person-deep-analysis -g -a claude-code -y` |
 
 ## Choose a Skill
 
