@@ -3,7 +3,7 @@
 评审日期：2026-09-24  
 范围：对 `person-deep-analysis` 添加多心理学镜头、Steelman 报告、行为评估和对外介绍的产品设计评审。该评审由三个独立 AI 评审线分别检查理论边界、仓库结构、测试与传播；不是心理学专家组、临床评估或用户研究。
 
-> **历史设计评审：** 初始讨论对象是旧版 `person-deep-analysis`。证据边界与主体性原则被后续版本沿用；当前用途、名称和验收状态以主 Skill 与新版 README 为准。
+> **历史设计评审：** 初始讨论对象是旧版 `person-deep-analysis`。证据边界与主体性原则被后续版本沿用；当前两个运行时入口见 [`person-deep-analysis`](../../skills/person-deep-analysis/SKILL.md) 与 [`interaction-risk-analysis`](../../skills/interaction-risk-analysis/SKILL.md)，用途和验收状态以各自入口及仓库 README 为准。
 
 ## 评审共识
 

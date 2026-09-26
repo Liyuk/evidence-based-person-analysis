@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Assert Skills CLI discovers exactly this repository's installable skill."""
+"""Assert Skills CLI discovers exactly this repository's two installable skills."""
 
 from __future__ import annotations
 
@@ -8,7 +8,7 @@ import subprocess
 import sys
 
 
-EXPECTED = "interaction-risk-analysis"
+EXPECTED = {"interaction-risk-analysis", "person-deep-analysis"}
 SKILLS_CLI_VERSION = "1.7.0"
 TIMEOUT_SECONDS = 120
 ANSI_ESCAPE_RE = re.compile(r"\x1b\[[0-?]*[ -/]*[@-~]")
@@ -44,17 +44,17 @@ def main() -> int:
         return result.returncode
     normalized_output = ANSI_ESCAPE_RE.sub("", output)
     count_match = re.search(r"Found\s+(\d+)\s+skills?", normalized_output, flags=re.IGNORECASE)
-    if not count_match or int(count_match.group(1)) != 1:
-        print("Expected Skills CLI to discover exactly one skill", file=sys.stderr)
+    if not count_match or int(count_match.group(1)) != len(EXPECTED):
+        print(f"Expected Skills CLI to discover exactly {len(EXPECTED)} skills", file=sys.stderr)
         return 1
     available = parse_available_skills(normalized_output)
-    if available != {EXPECTED}:
+    if available != EXPECTED:
         print(
-            f"Expected Skills CLI to list only {EXPECTED!r}; found {sorted(available)}",
+            f"Expected Skills CLI to list only {sorted(EXPECTED)}; found {sorted(available)}",
             file=sys.stderr,
         )
         return 1
-    print(f"Discovery check passed: exactly {EXPECTED} is available.")
+    print(f"Discovery check passed: exactly {', '.join(sorted(EXPECTED))} are available.")
     return 0
 
 

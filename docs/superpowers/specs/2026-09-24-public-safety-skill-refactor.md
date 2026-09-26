@@ -1,5 +1,7 @@
 # 公益识骗与反操控 Skill 重构规格
 
+> 历史规格：以下单 Skill 与归档方案记录当时的目标，不描述现行结构。现行运行时入口为 [`interaction-risk-analysis`](../../../skills/interaction-risk-analysis/SKILL.md) 和 [`person-deep-analysis`](../../../skills/person-deep-analysis/SKILL.md)。
+
 ## 目标
 
 将仓库从通用人物深度分析工具，转为帮助普通人识别诈骗、社交工程、心理操控、胁迫和霸凌，并支持其依据材料自行判断、核验信息和选择下一步的公众安全 Skill。

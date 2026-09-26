@@ -3,7 +3,7 @@
 研究日期：2026-09-24  
 用途：为 `person-deep-analysis` 的可选多视角报告设计提供来源和边界。本文不是临床指南，也不证明文本分析可有效识别人、动机、诊断或风险。
 
-> **沿用说明：** 该来源审查最初为旧版人物分析 Skill 撰写。当前 Skill 仍按需使用其中的理论边界；实际触发与输出规则以 `skills/interaction-risk-analysis/SKILL.md` 及其视角参考文件为准。
+> **沿用说明：** 该来源审查最初为旧版人物分析 Skill 撰写。当前两个 Skill 均按需使用相关理论边界；实际触发与输出规则分别以 [`person-deep-analysis`](../../skills/person-deep-analysis/SKILL.md) 和 [`interaction-risk-analysis`](../../skills/interaction-risk-analysis/SKILL.md) 的运行时文件为准。
 
 ## 结论摘要
 

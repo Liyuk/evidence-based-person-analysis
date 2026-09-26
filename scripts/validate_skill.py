@@ -10,12 +10,21 @@ from urllib.parse import unquote, urlparse
 
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
-SKILL_ROOT = REPO_ROOT / "skills" / "interaction-risk-analysis"
+SKILL_NAMES = ("interaction-risk-analysis", "person-deep-analysis")
 REQUIRED_FILES = (
     "skills/interaction-risk-analysis/SKILL.md",
     "skills/interaction-risk-analysis/agents/openai.yaml",
+    "skills/interaction-risk-analysis/modules/m1-needs-and-preferences.md",
+    "skills/interaction-risk-analysis/modules/m2-self-cognition.md",
+    "skills/interaction-risk-analysis/modules/m3-experience-and-development.md",
+    "skills/interaction-risk-analysis/modules/m4-shadow-risk.md",
+    "skills/interaction-risk-analysis/modules/m5-interaction-patterns.md",
+    "skills/interaction-risk-analysis/dlc/fictional-character-analysis.md",
+    "skills/interaction-risk-analysis/dlc/narrative-identity.md",
+    "skills/interaction-risk-analysis/dlc/relationship-dynamics.md",
     "skills/interaction-risk-analysis/references/methodology-and-limitations.md",
     "skills/interaction-risk-analysis/references/interaction-decomposition.md",
+    "skills/interaction-risk-analysis/references/attachment-styles.md",
     "skills/interaction-risk-analysis/references/axioms.md",
     "skills/interaction-risk-analysis/references/signal-mapping.md",
     "skills/interaction-risk-analysis/references/reasoning-with-the-user.md",
@@ -23,7 +32,38 @@ REQUIRED_FILES = (
     "skills/interaction-risk-analysis/references/relationship-coercion.md",
     "skills/interaction-risk-analysis/references/workplace-and-social-bullying.md",
     "skills/interaction-risk-analysis/references/safety-and-agency.md",
-    "archive/person-deep-analysis/SKILL.md",
+    "skills/interaction-risk-analysis/references/fraud-and-coercive-control-support.md",
+    "skills/interaction-risk-analysis/references/safety-boundaries.md",
+    "skills/interaction-risk-analysis/references/perspectives/cbt-descriptive.md",
+    "skills/interaction-risk-analysis/references/perspectives/dark-triad-behavioral-screening.md",
+    "skills/interaction-risk-analysis/references/perspectives/developmental-psychology.md",
+    "skills/interaction-risk-analysis/references/perspectives/forensic-evidence-boundaries.md",
+    "skills/interaction-risk-analysis/references/perspectives/humanistic-and-needs.md",
+    "skills/interaction-risk-analysis/references/perspectives/psychodynamic.md",
+    "skills/interaction-risk-analysis/references/perspectives/steelman-report.md",
+    "skills/person-deep-analysis/SKILL.md",
+    "skills/person-deep-analysis/agents/openai.yaml",
+    "skills/person-deep-analysis/modules/m1-needs-and-preferences.md",
+    "skills/person-deep-analysis/modules/m2-self-cognition.md",
+    "skills/person-deep-analysis/modules/m3-experience-and-development.md",
+    "skills/person-deep-analysis/modules/m4-shadow-risk.md",
+    "skills/person-deep-analysis/modules/m5-interaction-patterns.md",
+    "skills/person-deep-analysis/dlc/fictional-character-analysis.md",
+    "skills/person-deep-analysis/dlc/narrative-identity.md",
+    "skills/person-deep-analysis/dlc/relationship-dynamics.md",
+    "skills/person-deep-analysis/references/methodology-and-limitations.md",
+    "skills/person-deep-analysis/references/attachment-styles.md",
+    "skills/person-deep-analysis/references/axioms.md",
+    "skills/person-deep-analysis/references/signal-mapping.md",
+    "skills/person-deep-analysis/references/fraud-and-coercive-control-support.md",
+    "skills/person-deep-analysis/references/safety-boundaries.md",
+    "skills/person-deep-analysis/references/perspectives/cbt-descriptive.md",
+    "skills/person-deep-analysis/references/perspectives/dark-triad-behavioral-screening.md",
+    "skills/person-deep-analysis/references/perspectives/developmental-psychology.md",
+    "skills/person-deep-analysis/references/perspectives/forensic-evidence-boundaries.md",
+    "skills/person-deep-analysis/references/perspectives/humanistic-and-needs.md",
+    "skills/person-deep-analysis/references/perspectives/psychodynamic.md",
+    "skills/person-deep-analysis/references/perspectives/steelman-report.md",
     "docs/research/multilens-psychology-evidence.md",
     "docs/research/multilens-design-review.md",
     "docs/research/network-evaluation-sources.md",
@@ -72,34 +112,39 @@ REQUIRED_FILES = (
     "scripts/validate_evals.py",
 )
 LINK_RE = re.compile(r"(?<!!)\[[^\]]*\]\(([^)]+)\)")
+RUNTIME_REF_RE = re.compile(r"`((?:references|modules|dlc)/[^`\s]+)`")
 FRONTMATTER_RE = re.compile(r"\A---\s*\n(.*?)\n---\s*(?:\n|\Z)", re.DOTALL)
 
 
-def check_frontmatter(errors: list[str]) -> None:
-    skill_file = SKILL_ROOT / "SKILL.md"
+def check_frontmatter(skill_name: str, errors: list[str]) -> None:
+    skill_file = REPO_ROOT / "skills" / skill_name / "SKILL.md"
     if not skill_file.is_file():
         return
     content = skill_file.read_text(encoding="utf-8")
     match = FRONTMATTER_RE.match(content)
     if not match:
-        errors.append("skills/interaction-risk-analysis/SKILL.md: missing YAML frontmatter")
+        errors.append(f"skills/{skill_name}/SKILL.md: missing YAML frontmatter")
         return
     fields = match.group(1)
-    name_match = re.search(r"^name:\s*([^\s#]+)\s*$", fields, flags=re.MULTILINE)
+    name_match = re.search(
+        r"""^name:[ \t]*(?:'([^'\n]+)'|"([^"\n]+)"|([^\s#]+))[ \t]*$""",
+        fields,
+        flags=re.MULTILINE,
+    )
     for field in ("name", "description"):
         if not re.search(rf"^{field}:\s*\S", fields, flags=re.MULTILINE):
-            errors.append(f"SKILL.md: frontmatter is missing a non-empty {field!r} field")
-    if name_match and name_match.group(1) != SKILL_ROOT.name:
-        errors.append(
-            f"SKILL.md name {name_match.group(1)!r} does not match directory {SKILL_ROOT.name!r}"
-        )
+            errors.append(f"skills/{skill_name}/SKILL.md: frontmatter is missing a non-empty {field!r} field")
+    if name_match:
+        name = next(value for value in name_match.groups() if value is not None)
+        if name != skill_name:
+            errors.append(f"skills/{skill_name}/SKILL.md name {name!r} does not match directory {skill_name!r}")
     description_match = re.search(
         r"^description:\s*>-?\s*\n((?:[ \t].*\n?)+)", fields, flags=re.MULTILINE
     )
     if description_match and len(description_match.group(1).strip()) > 1024:
-        errors.append("SKILL.md: frontmatter description exceeds 1024 characters")
+        errors.append(f"skills/{skill_name}/SKILL.md: frontmatter description exceeds 1024 characters")
     if description_match and not description_match.group(1).lstrip().startswith("Use when"):
-        errors.append("SKILL.md: description should begin with a clear usage trigger ('Use when')")
+        errors.append(f"skills/{skill_name}/SKILL.md: description should begin with a clear usage trigger ('Use when')")
 
 
 def check_required_files(errors: list[str]) -> None:
@@ -113,12 +158,28 @@ def check_no_root_skill(errors: list[str]) -> None:
         errors.append("repository root must not contain SKILL.md; installable skill belongs under skills/")
 
 
-def check_single_installable_skill(errors: list[str]) -> None:
-    skill_files = sorted((REPO_ROOT / "skills").glob("*/SKILL.md"))
-    expected = REPO_ROOT / "skills" / "interaction-risk-analysis" / "SKILL.md"
-    if skill_files != [expected]:
-        names = [str(path.relative_to(REPO_ROOT)) for path in skill_files]
-        errors.append(f"expected exactly one installable skill {expected.relative_to(REPO_ROOT)}, found {names}")
+def check_installable_skills(errors: list[str]) -> None:
+    found = {path.name for path in (REPO_ROOT / "skills").iterdir() if path.is_dir()}
+    expected = set(SKILL_NAMES)
+    if found != expected:
+        errors.append(f"expected exactly these installable skills {sorted(expected)}, found {sorted(found)}")
+
+
+def check_runtime_references(errors: list[str]) -> None:
+    for skill_name in SKILL_NAMES:
+        skill_root = (REPO_ROOT / "skills" / skill_name).resolve()
+        if not skill_root.is_dir():
+            continue
+        for source in skill_root.rglob("*.md"):
+            for line_number, line in enumerate(source.read_text(encoding="utf-8").splitlines(), 1):
+                for match in RUNTIME_REF_RE.finditer(line):
+                    reference = match.group(1)
+                    target = (skill_root / reference).resolve()
+                    location = f"skills/{skill_name}/{source.relative_to(skill_root)}:{line_number}"
+                    if not target.is_relative_to(skill_root):
+                        errors.append(f"{location}: runtime reference escapes skill directory: {reference}")
+                    elif not target.is_file():
+                        errors.append(f"{location}: runtime reference target not found: {reference}")
 
 
 def check_markdown_links(errors: list[str]) -> None:
@@ -143,9 +204,11 @@ def check_markdown_links(errors: list[str]) -> None:
 def main() -> int:
     errors: list[str] = []
     check_required_files(errors)
-    check_frontmatter(errors)
+    for skill_name in SKILL_NAMES:
+        check_frontmatter(skill_name, errors)
     check_no_root_skill(errors)
-    check_single_installable_skill(errors)
+    check_installable_skills(errors)
+    check_runtime_references(errors)
     check_markdown_links(errors)
     if errors:
         print("Repository validation failed:")
