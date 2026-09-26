@@ -5,7 +5,7 @@
 
 本文件记录定向选出的 19 个仓库样本，不推断 GitHub 全站规模或总体分布。两个切片对应不同产品定位，不应简单理解为 19 个直接竞品。仓库内容会变化，结论应视为 2026-09-24 附近的查阅快照。
 
-> **历史资料提示：** 本文中的“当前”“本轮”均指各段落标注的 2026-09-24/25 研究时点，不代表现在的项目状态。旧名称、仓库 slug、测试数量和建议只作为决策记录保留。当前中文展示名为“互动风险识别与解构”，Skill ID 与仓库 slug 为 `interaction-risk-analysis`；请以[后续相邻项目研究与命名评审](interaction-risk-skills-landscape.md)及仓库 README 为准。
+> **历史资料提示：** 本文中的“当前”“本轮”均指各段落标注的 2026-09-24/25 研究时点，不代表现在的项目状态。旧名称、仓库 slug、测试数量和建议只作为决策记录保留。现在有两个独立运行时入口：[`interaction-risk-analysis`](../../skills/interaction-risk-analysis/SKILL.md) 与 [`person-deep-analysis`](../../skills/person-deep-analysis/SKILL.md)；请以仓库 README 为准。
 
 ## 摘要
 
@@ -25,7 +25,7 @@
 
 本轮复核其当前 README 与主 Skill：项目仍将自身描述为覆盖关系全周期的情绪支持与策略顾问，包含聊天分析、可执行建议、可选长期记忆和 ChatLab；其流程明确区分事实/推断/未知，并设有同意、撤回和安全边界。README 还声明支持把分析转为可发送话术、邀约、练习和观察/停止条件。[README](https://github.com/shengjidaguai-china/goutoujunshi/blob/main/README_EN.md) · [SKILL.md](https://github.com/shengjidaguai-china/goutoujunshi/blob/main/SKILL.md)
 
-**历史观察：** 旧版也处理聊天/自述，区分事实与推断；goutoujunshi 则以关系目标、情绪支持和下一步策略为中心。旧版个人画像功能现已归档，不是当前项目能力。当前项目转为诈骗、操控、胁迫和霸凌风险支持，差异见下方公益安全方向对照。
+**历史观察：** 旧版也处理聊天/自述，区分事实与推断；goutoujunshi 则以关系目标、情绪支持和下一步策略为中心。在本次研究所处阶段，人物分析包曾归档，项目主线转为诈骗、操控、胁迫和霸凌风险支持；此后人物分析包已恢复为独立 Skill。公益安全方向对照见下文。
 
 **对本项目的借鉴：** 可借鉴其按需求调用知识和明确安全/记忆边界；保持本项目对人物画像交付的专注，不复制其关系策略顾问范围。
 
@@ -75,7 +75,7 @@
 
 | 项目 | 主要对象与交付 | 结构/机制 | 可见评估或边界 |
 |---|---|---|---|
-| 本项目旧版 `person-deep-analysis`（已归档） | 个人材料、聊天片段、虚构角色；曾含有限反诈支持 | 8 条启发式 → 核实问题 → M1–M5；按需读取相关参考 | 当时有 26 个行为场景及若干单模型小样本试跑；该包已不再是安装入口 |
+| 本项目当时的 `person-deep-analysis`（研究时已归档，现已恢复） | 个人材料、聊天片段、虚构角色；曾含有限反诈支持 | 8 条启发式 → 核实问题 → M1–M5；按需读取相关参考 | 当时有 26 个行为场景及若干单模型小样本试跑；这些结果不是现行独立 Skill 的复测 |
 | goutoujunshi | 情绪支持、关系评估与策略建议；含聊天分析、记忆/ChatLab 选项 | 多方画像、事实/推断/未知、按需知识、权衡与行动计划 | README/SKILL 描述同意式长期记忆、撤回/清除、安全边界及校验脚本 |
 | Analyze Romantic Relationships | 情侣关系证据分析；互动循环、沟通准备、可选决策支持 | 证据/结论编号、命题门槛、支持与反证、替代解释、裁决状态 | README 描述合成案例、JSON、标准库校验器、回归测试和 CI |
 | Person Behavior Analysis | 长期聊天档案；画像、关系复盘、相似事件和条件化行为推演 | 时间线/事件单元、竞争机制假设、跨事件检索、结果更新 | README 描述隐私安全说明和合成示例；不可据自述判断预测效度 |
@@ -137,7 +137,7 @@
 
 为本仓库选择目录时，另核对了 [Vercel Skills CLI 文档](https://github.com/vercel-labs/skills/blob/main/README.md) 与 [Agent Skills specification](https://github.com/agentskills/agentskills/blob/main/docs/specification.mdx)。CLI 文档提供从 GitHub/本地 source 发现和按 skill 名称选择安装的工作流；规范采用 `SKILL.md` 作为入口，并允许将详细指令拆分到相对引用的 supporting files。CLI 中关于 root-level skill 打包的实践问题也见 [issue #1469](https://github.com/vercel-labs/skills/issues/1469)。
 
-本节记录的是 2026-09-24 时的分发设计。当时唯一运行时包已调整为 `skills/person-analysis/`，通过 `--skill person-analysis` 安装；它把旧人物分析方法与反诈、反操控和安全支持合并，其他研究、案例及校验脚本留在仓库级。该包和 ID 后来再次改名；当前发现与隔离安装方式请以仓库 README 和 `interaction-risk-analysis` 为准。
+本节记录的是 2026-09-24 时的分发设计。当时唯一运行时包已调整为 `skills/person-analysis/`，通过 `--skill person-analysis` 安装；它把旧人物分析方法与反诈、反操控和安全支持合并，其他研究、案例及校验脚本留在仓库级。该包和 ID 后来再次改名；当前两个 Skill 的发现与隔离安装方式请以仓库 README 为准。
 
 ## 公益型识骗与反操控项目：GitHub 定向检索（2026-09-24）
 

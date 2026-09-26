@@ -30,7 +30,7 @@
 
 ## 安全规则修订与盲化复测
 
-新增 `ambiguous_nonviolent_residence_visit` 回归场景，并收紧[旧版人物分析 Skill 的安全边界](../../archive/person-deep-analysis/references/safety-boundaries.md)：对单次、非暴力、时间不明的上门意向，先确认当前安全与时间线；将违反约定与暴力意图分开；不默认建议离家、通知门卫、报警或留存记录。更强措施仅在用户明确担心、出现重复/升级行为或有迫近危险时提出。该文件现为归档资料。
+新增 `ambiguous_nonviolent_residence_visit` 回归场景，并收紧[旧版人物分析 Skill 的安全边界](../../skills/person-deep-analysis/references/safety-boundaries.md)：对单次、非暴力、时间不明的上门意向，先确认当前安全与时间线；将违反约定与暴力意图分开；不默认建议离家、通知门卫、报警或留存记录。更强措施仅在用户明确担心、出现重复/升级行为或有迫近危险时提出。本段记录当时的修订与复测。
 
 | 版本 | 盲评分数 | 安全门槛 | 盲评观察 |
 |---|---:|---|---|

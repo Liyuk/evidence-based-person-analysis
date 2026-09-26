@@ -1,5 +1,7 @@
 # Person Analysis × 反诈与反操控：产品与 Skill 设计
 
+> 历史规格：以下 `person-analysis` 单 Skill 与归档方案记录当时的设计。现行运行时入口为 [`interaction-risk-analysis`](../../../skills/interaction-risk-analysis/SKILL.md) 和 [`person-deep-analysis`](../../../skills/person-deep-analysis/SKILL.md)。
+
 ## 目标
 
 把 `person-analysis` 恢复为本项目的主要分析方法，并让它优先服务于普通人识别诈骗、操控、胁迫和霸凌。Skill 不只判断一段话“像不像骗局”，还帮助用户拆解人物在一段互动中的说法、行为、时间顺序、重复模式、回应边界的方式及可独立核验的事实。

@@ -1,47 +1,50 @@
-# Interaction Risk Analysis
+# Interaction Risk Analysis and Person Deep Analysis
 
-**Deconstruct interactions involving scams, manipulation, abuse, or bullying. Keep the decision with the user.**
+Two independently installable Agent Skills help you separate the material at hand, possible explanations, and unknowns while keeping verification and decisions with you.
 
-An Agent Skill for ordinary people dealing with suspicious interactions, romance scams, coercion, emotional manipulation or abuse, and interpersonal bullying. It separates what was said, what happened, how events unfolded, the effects of behavior, possible purposes, counterevidence, and unknowns. Models already recognize many patterns; the Skill supplies a repeatable prompt method for making those judgments inspectable and revisable, rather than treating a familiar label as the answer. It does not diagnose people or decide who is a criminal.
+| Skill | When to use it | What it does |
+|---|---|---|
+| `interaction-risk-analysis` | You suspect a scam, manipulation, coercion, abuse, or bullying and need to understand an interaction and immediate risks | Builds an event timeline, examines observable effects and repeated patterns, compares evidence-based explanations, and offers independent verification and safety options |
+| `person-deep-analysis` | You want to understand a self-description, profile, selected chat or interaction excerpts, or a fictional character; you may explicitly request multiple perspectives | Separates quotes and observable behavior from limited interpretations, drawing on relevant person, relationship, narrative, or psychological lenses |
 
-[Eight paired scenario demos](docs/demos/README.md) preserve historical outputs from ordinary Codex and explicit `$person-analysis` runs before the rename, using synthetic prompts grounded in official public guidance.
+Both can address concerning relationship interactions. If someone is pressuring you for money or credentials, threatening you, or controlling your choices, address immediate financial and personal safety first. Neither Skill diagnoses a person, establishes a crime or hidden motive, or decides a relationship for you.
+
+[中文](README.md) · [Synthetic scenario demos](docs/demos/README.md) · [Acceptance cases](evals/interaction-risk-cases.json) · [Contributing](CONTRIBUTING.md) · [MIT License](LICENSE)
 
 ## Install
 
-This repository provides one installable Skill: `interaction-risk-analysis`.
+Repository: <https://github.com/Liyuk/interaction-risk-analysis>. Choose either Skill or install both separately.
 
-For Codex:
+| Skill | Codex | Claude Code |
+|---|---|---|
+| Interaction Risk Analysis | `npx skills add Liyuk/interaction-risk-analysis --skill interaction-risk-analysis -g -a codex -y` | `npx skills add Liyuk/interaction-risk-analysis --skill interaction-risk-analysis -g -a claude-code -y` |
+| Person Deep Analysis | `npx skills add Liyuk/interaction-risk-analysis --skill person-deep-analysis -g -a codex -y` | `npx skills add Liyuk/interaction-risk-analysis --skill person-deep-analysis -g -a claude-code -y` |
 
-```sh
-npx skills add Liyuk/interaction-risk-analysis --skill interaction-risk-analysis -g -a codex -y
-```
+## Choose a Skill
 
-For Claude Code:
+For a romance-investment offer where someone blocks company verification and demands payment tonight, use `interaction-risk-analysis`. It can lay out the timeline, separate identity claims from verified facts, explain how secrecy and urgency affect your options, and identify what to verify independently.
 
-```sh
-npx skills add Liyuk/interaction-risk-analysis --skill interaction-risk-analysis -g -a claude-code -y
-```
+For a self-description, profile, selected messages, or character in a story, use `person-deep-analysis`. It identifies what the material supports, offers limited alternative interpretations, and names what remains unknown. Fictional-character conclusions stay within the work; a multi-perspective report is used only when explicitly requested.
 
-## How it works
-
-For a multi-event romance-investment scenario, the Skill can lay out the timeline, distinguish an identity claim from verified facts, and explain why a move off-platform, blocked verification, secrecy, and urgent payment together deserve caution. It can then separate a behavior's practical effect from possible intent, identify what evidence could distinguish competing explanations, and offer next steps. A single suspicious phrase is not enough to infer a stable personality or repeated pattern.
+You can ask in ordinary language or invoke either Skill explicitly:
 
 ```text
 $interaction-risk-analysis
-Use this method to deconstruct the interaction: build an event timeline; separate quotes, claims, observed behavior, and inference; explain the behavior's practical effects and possible purposes with evidence, counterevidence, alternatives, and unknowns. Distinguish sequence from causation and effect from intent. Say what evidence would change the assessment, then offer optional responses. Do not jump to a familiar label or decide the case for me.
+Build a timeline of this interaction. Separate quotes, claims, observed behavior, and inference; explain practical effects, plausible interpretations, counterevidence, and unknowns, then offer independently verifiable options.
 ```
 
-The project grew from earlier person-analysis work, but the current Skill is named for its public task: analyzing interaction risks. It asks the model to make evidence and competing explanations inspectable; it does not claim a unique detection ability.
+```text
+$person-deep-analysis
+Separate what this material explicitly shows from possible interpretations. Give supporting evidence, reasonable alternatives, and unknowns; do not infer a real person's stable personality from a short excerpt.
+```
 
-## Scope and limits
+## Shared limits
 
-Use it for romance/investment and job scams, impersonation, credential requests, recovery scams, emotional blackmail, coercion, isolation, monitoring, workplace bullying, and bounded profile or relationship-material analysis. It also tests false positives such as a single memory disagreement or ordinary constructive feedback.
+These Skills provide repeatable analysis methods, not automatic detection, psychological testing, clinical diagnosis, legal findings, investigation, bank fraud control, or fund recovery. Limited text cannot establish a complete personality, criminal conduct, or subjective intent. Psychological lenses are prompts for questions and limited interpretations. For urgent safety, account, or payment risks, take practical protective steps and verify through official channels you find yourself. Share only the excerpts needed for your question; remove unnecessary names, account details, contact information, and full private chats. Data handling depends on the host platform.
 
-This is not an automatic detector, clinical diagnosis, legal finding, investigation, bank fraud system, or fund-recovery service. It cannot establish identity, criminal liability, or hidden motives from chat alone. Psychology is an optional explanatory lens, not proof. In urgent situations, address immediate financial or personal safety first. Avoid sharing unnecessary names, account details, or full private chats.
+## Scenarios and checks
 
-## Evaluation
-
-The repository contains 20 synthetic acceptance cases with expected and forbidden behaviors, including causal and purpose inference. These cases have not yet been run individually with the renamed `interaction-risk-analysis` ID. Eight scenario demos preserve ordinary Codex and explicit Skill outputs from before the rename, when the Skill ID was `person-analysis`; they are historical results, not reruns of the current ID. The [historical acceptance report](evals/results/2026-09-25-person-analysis-anti-fraud-acceptance.md) records those runs and their limits.
+The [synthetic scenario demos](docs/demos/README.md) illustrate event analysis, alternative explanations, evidence updates, and safety options; they do not establish real-world accuracy. Contributors can check the repository's acceptance cases and behavior boundaries with:
 
 ```sh
 python3 scripts/validate_skill.py
@@ -52,4 +55,4 @@ python3 scripts/check_skill_discovery.py
 python3 scripts/check_skill_installation.py
 ```
 
-The GitHub repository slug and installable Skill ID are `interaction-risk-analysis`. License: MIT.
+License: MIT.

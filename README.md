@@ -1,70 +1,50 @@
-# 互动风险识别与解构
+# 互动风险识别与人际深度解析
 
-**看清诈骗、操控、虐待与霸凌中的互动风险；依据行为解构，不替人定性。**
+两个可独立安装的 Agent Skill，帮助你把具体材料、可能解释和未知分开，并保留自己核验与决定的空间。
 
-这是一个面向普通人的 Agent Skill。它帮助你分析可疑互动、网恋诈骗、情绪操控、胁迫、情感虐待和人际霸凌：分清原话、行为、事件顺序、重复模式、行为效果、可能目的、反证和未知，再给可独立核验的选择。不诊断人格，也不替你裁定谁是“坏人”。模型本身已有模式识别能力；Skill 提供一套提示方法，让判断更有结构、可检查和修正，不把熟悉的标签直接当答案。
+| Skill | 适合何时使用 | 主要做什么 |
+|---|---|---|
+| `interaction-risk-analysis`（互动风险识别与解构） | 怀疑诈骗、操控、胁迫、虐待或霸凌，需要梳理互动过程和眼前风险 | 按时间拆解事件、行为效果与重复模式，比较有依据的解释，提出独立核验与安全选择 |
+| `person-deep-analysis`（人际深度解析） | 想理解自述、个人介绍、选取的聊天/互动材料或虚构角色，或明确需要多视角解读 | 区分原话、可观察行为与有限的候选解释；按材料选用人物、关系、叙事或心理学视角 |
 
-[English](README_EN.md) · [八种场景的实际对照演示](docs/demos/README.md) · [相邻项目研究](docs/research/interaction-risk-skills-landscape.md) · [验收场景](evals/interaction-risk-cases.json) · [行为验收标准](evals/interaction-risk-acceptance.md) · [博客项目介绍](docs/launch/blog-project-module.md) · [MIT License](LICENSE)
+两者都可以处理关系中的可疑互动。若正在被催款、索取凭证、威胁或控制，先处理现实安全和财务风险；不要让人物解读拖延止损。两者都不诊断人格、确认犯罪或隐藏动机，也不替用户决定关系走向。
+
+[English](README_EN.md) · [合成场景演示](docs/demos/README.md) · [验收场景](evals/interaction-risk-cases.json) · [贡献指南](CONTRIBUTING.md) · [MIT License](LICENSE)
 
 ## 安装
 
-本仓库只有一个可安装 Skill：`interaction-risk-analysis`（互动风险识别与解构）。
+仓库地址：<https://github.com/Liyuk/interaction-risk-analysis>。按需要选择一个或两个 Skill，分别安装。
 
-安装到 Codex：
+| Skill | Codex | Claude Code |
+|---|---|---|
+| 互动风险识别与解构 | `npx skills add Liyuk/interaction-risk-analysis --skill interaction-risk-analysis -g -a codex -y` | `npx skills add Liyuk/interaction-risk-analysis --skill interaction-risk-analysis -g -a claude-code -y` |
+| 人际深度解析 | `npx skills add Liyuk/interaction-risk-analysis --skill person-deep-analysis -g -a codex -y` | `npx skills add Liyuk/interaction-risk-analysis --skill person-deep-analysis -g -a claude-code -y` |
 
-```sh
-npx skills add Liyuk/interaction-risk-analysis --skill interaction-risk-analysis -g -a codex -y
-```
+## 怎么选
 
-安装到 Claude Code：
+如果一位网恋对象提出投资、阻止你核实公司并催促当晚转账，使用 `interaction-risk-analysis`：它会还原事件顺序，区分身份主张和已核实事实，说明限制核验、保密和催款如何形成风险，并列出可以独立核验的下一步。
 
-```sh
-npx skills add Liyuk/interaction-risk-analysis --skill interaction-risk-analysis -g -a claude-code -y
-```
+如果你想理解一段自述、个人介绍或几段聊天呈现了哪些需求、选择与互动特点，使用 `person-deep-analysis`：它会依据材料提出有限的候选解释，保留反例和未知；分析虚构角色时，结论只涉及作品如何呈现角色。只有你明确要求时，才展开多视角报告。
 
-## 它怎样拆解问题
-
-例如，一位网恋对象先转到其他平台，之后提出投资；当你要求核实公司时，对方反问“你信不信我”，最后催你当晚转账并保密。Skill 会按时间还原事件，把身份主张和已核实事实分开，解释转移渠道、限制核验、保密和催款如何组成风险链；同时列出仍不知道什么、什么独立证据会改变判断，以及可以先采取的步骤。
-
-使用时可以直接描述经历，也可以把这段分析方法带进提示词：
+两个 Skill 均可直接用自然语言提出问题，也可显式调用：
 
 ```text
 $interaction-risk-analysis
-请按这套方法解构这些互动：按时间拆事件，分清原话、事实主张、可观察行为和推断；分析行为产生的实际效果，以及可能的因果、立场或目的，并给出依据、反证、合理替代解释和未知。区分“之后发生”与“因此导致”、效果与意图；说明哪些新证据会改变判断，再给可选回应。不要先套熟悉标签，也不要替我下结论。
+请按时间拆解这些互动，分清原话、事实主张、可观察行为和推断；说明行为效果、可能解释、反证与未知，并给我可独立核验的选择。
 ```
 
-## 分析方法
+```text
+$person-deep-analysis
+请根据这段材料区分明确表达的内容和可能解释，指出依据、合理替代解释与未知；不要用有限片段给现实人物定型。
+```
 
-复杂场景按以下顺序处理：
+## 共同边界
 
-1. 标明材料来源、说话人、时间范围和上下文缺口。
-2. 拆成“发生了什么 → 对方如何回应 → 后来发生什么 → 有何影响”的事件单元。
-3. 区分单一线索、同一事件的连续升级和跨事件重复模式。
-4. 检查行为实际改变了什么，再提出可能的立场或目的；把效果、动机和因果关系分开，列出依据、反证、合理替代解释与未知。
-5. 指出什么信息能区分这些解释，并独立核验身份、平台、交易或承诺。
-6. 先处理迫近的资金、账户和人身风险；应对方式由用户选择。
+Skill 提供可复用的分析方法，不是自动检测器、心理测验、临床诊断、法律裁决、侦查、银行风控或资金追回服务。有限文本不能证明完整人格、犯罪事实或主观动机；心理学视角只用于提出问题和有限解释。遇到迫近的人身、账户或资金风险，先采取现实中的安全措施，并通过自己找到的官方渠道核验。只提供回答问题所需的最少材料，移除不必要的姓名、账号、联系方式和完整私聊；数据如何处理取决于所用宿主平台。
 
-这不是让模型关闭已有判断能力，而是让它把识别到的线索摊开说明，避免直接跳到“这是某种套路”的结论。实际运行中，普通模型本身也可能答得很好；项目主张的是一套可复用的分析纪律，不是 Skill 独有的检测能力。
+## 场景与检查
 
-这套方法沿用项目早期 `person-analysis` 工作中的人物与互动解构经验，并纳入反诈、安全、霸凌和可选心理学视角。重点是让用户看见线索怎样通向假设，再自行核对和决定；Skill 不声称拥有普通模型没有的“识人”能力。
-
-## 适用范围
-
-- 网恋/投资诈骗、杀猪盘、刷单与兼职骗局、传销/资金盘、冒充权威、凭证索取和追回资金二次诈骗。
-- 情绪勒索、胁迫、隔离控制、监控、反复否认现实及越界后的惩罚。
-- 职场、学校、群聊和社交网络中的重复羞辱、排斥、造谣、报复和权力滥用。
-- 有限的人物自述、关系互动、聊天片段或虚构角色分析；明确区分证据与理论解释。
-- 误报对照：单次记忆分歧、正常反馈或一次疏忽不足以单独证明操控、诈骗或霸凌。
-
-## 边界
-
-这不是自动检测器、心理诊断、法律裁决、侦查、银行风控或资金追回服务。不保证发现所有风险。只凭聊天通常不能确认身份、犯罪事实或隐藏动机。心理学视角只能帮助提出有限解释，不能诊断或预测危险。遇到急迫危险，先处理现实安全；提供地区性热线或法律步骤前需要核对当地官方来源。不要提交不必要的姓名、账号、联系方式或完整私聊；Skill 不能控制宿主如何处理输入。
-
-## 场景与验收
-
-仓库维护 20 个带有预期行为和禁忌项的合成验收场景，覆盖事件解构、因果/目的推断、误报控制、反证更新、安全步骤和用户主体性。**这 20 个场景目前尚未使用新 ID `interaction-risk-analysis` 逐例运行。**另有八个按四类平衡的合成演示，保留更名前以 `$person-analysis` 运行的普通 Codex / Skill 对照输出；这些是旧 Skill ID 下的历史结果，不是新 ID 的重复试跑。[场景演示](docs/demos/README.md)、[历次宿主验收记录](evals/results/2026-09-25-person-analysis-anti-fraud-acceptance.md)和[解构方法试跑](evals/results/2026-09-25-decomposition-method-evaluation.md)都注明测试条件和结论边界。
-
-可运行仓库检查：
+[合成场景演示](docs/demos/README.md)展示事件拆解、替代解释、反证更新和安全选择；示例不等于真实世界准确率验证。仓库中的验收案例与检查脚本供贡献者复核行为边界：
 
 ```sh
 python3 scripts/validate_skill.py
@@ -75,18 +55,4 @@ python3 scripts/check_skill_discovery.py
 python3 scripts/check_skill_installation.py
 ```
 
-## 目录结构
-
-```text
-skills/interaction-risk-analysis/          唯一可安装 Skill
-  modules/                                  旧版 M1–M5 人物分析模块
-  dlc/                                      按需关系、叙事与虚构角色分析
-  references/                               解构、反诈、反操控、安全和理论参考
-evals/interaction-risk-cases.json          当前验收案例
-evals/results/                              宿主运行与历史评估记录
-archive/person-deep-analysis/                旧版原始包，保留追溯
-docs/                                       竞品研究、方法依据和项目说明
-scripts/                                    结构、场景、发现及安装检查
-```
-
-许可证：MIT。GitHub 仓库与 Skill ID 均为 `interaction-risk-analysis`；GitHub 对原仓库地址保留跳转。
+许可证：MIT。

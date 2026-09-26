@@ -1,14 +1,14 @@
 # 贡献指南
 
-欢迎补充边界修正、识别流程改进、宿主兼容反馈、翻译和评估案例。贡献应服务于项目承诺：**根据具体行为帮助普通人核对诈骗、操控或霸凌风险，说明判断依据和未知，并把决定权留给当事人。**
+欢迎补充边界修正、分析流程改进、宿主兼容反馈、翻译和评估案例。两个 Skill 都应依据具体材料说明判断依据和未知，并把决定权留给当事人：`interaction-risk-analysis` 侧重诈骗、操控、胁迫、虐待和霸凌中的互动风险；`person-deep-analysis` 侧重自述、个人介绍、选取的聊天/互动材料及虚构角色的有限解读。
 
 ## 提交前
 
 - 先搜索已有 issue/文档，说明具体场景、预期行为和当前问题。
-- 改动 `skills/interaction-risk-analysis/` 时，保持运行时包自包含，文件引用使用 Skill 目录内的相对路径。
-- 修改解构、反诈或安全行为时，更新相应的 `evals/interaction-risk-cases.json` / `evals/interaction-risk-acceptance.md`，并在适用时更新 `safety-scenarios.json` 与 `safety-regression.md`。
+- 改动 `skills/interaction-risk-analysis/` 或 `skills/person-deep-analysis/` 时，保持各自运行时包自包含，文件引用使用所在 Skill 目录内的相对路径。
+- 修改任一 Skill 的分析或安全行为时，更新相关验收案例与说明；互动风险相关场景见 `evals/interaction-risk-cases.json` / `evals/interaction-risk-acceptance.md`，安全场景见 `evals/safety-scenarios.json` / `evals/safety-regression.md`。
 - 诈骗和心理学术语的事实主张应有可靠来源；区分研究证据、观察线索和项目假设。不要以仓库自述或单个例子宣称有效。
-- `archive/person-deep-analysis/` 保留旧版原始内容供追溯。活跃 Skill 位于 `skills/interaction-risk-analysis/`；修改时同步验收场景，避免复制未经审查的旧版规则。
+- 涉及诈骗、胁迫或控制的行为边界时，检查两个 Skill 是否都优先处理当下安全与财务风险；人物解读不得替代独立核验。
 
 ## 案例隐私
 
