@@ -1,6 +1,9 @@
-# 互动风险识别与人际深度解析
+# RelationForge
 
-两个可独立安装的 Agent Skill，帮助你把具体材料、可能解释和未知分开，并保留自己核验与决定的空间。
+*Evidence-first reasoning for people, interactions, and risk*
+拆事实，看言行，辨风险，不替人定性。
+
+RelationForge 包含两个可独立安装的 Agent Skill，帮助你把具体材料、可能解释和未知分开，并保留自己核验与决定的空间。
 
 | Skill | 适合何时使用 | 主要做什么 |
 |---|---|---|

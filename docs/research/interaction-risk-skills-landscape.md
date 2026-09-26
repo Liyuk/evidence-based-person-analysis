@@ -9,7 +9,7 @@
 
 GitHub 上确有相邻项目：有诈骗检测 Skill、关系/人物分析 Skill、聊天操控分析应用、多风险检测 MCP 服务，以及多轮反诈研究基准。本次定向检索没有发现一个公开仓库明确把“人物/互动分析方法”作为反诈核心方法，同时提供“跨诈骗、胁迫、情感操控、霸凌的用户支持”这一完整组合。这个结论限于本次检索样本，不等于全 GitHub 唯一。
 
-本次命名定为：中文展示名 **互动风险识别与解构**，英文 Skill ID 与 GitHub 仓库 slug 均为 **`interaction-risk-analysis`**。这比 `person-analysis` 更能说明用户要处理的任务，避免被误解为人格画像；也比“反诈/反操控”更宽，不会把霸凌和情感虐待降为边缘用途。早期 `person-analysis` 名称作为方法来源和历史测试 ID 保留在旧记录中。
+本次品牌命名定为：**RelationForge**，定位语为 *Evidence-first reasoning for people, interactions, and risk*，中文口号为“拆事实，看言行，辨风险，不替人定性”。两个英文 Skill ID 与 GitHub 仓库 slug 继续分别使用 **`interaction-risk-analysis`** 与 **`person-deep-analysis`**。品牌名覆盖人物材料与互动风险，技术 ID 则准确说明各自的安装入口。
 
 ## 样本与分类
 
@@ -41,9 +41,10 @@ GitHub 上确有相邻项目：有诈骗检测 Skill、关系/人物分析 Skill
 
 因此，“person-analysis”更适合作为**项目方法来源**，不适合作为唯一的面向用户的名称。单独使用它容易让人预期这是人格画像或关系画像；使用“防骗与反操控”又会弱化学校、职场及亲密关系霸凌等应用。`interaction-risk-analysis` 直指分析互动风险，能覆盖不同场景；中文展示名补足“识别与解构”的用户任务。
 
-> **展示名：** 互动风险识别与解构
-> **Skill / 仓库：** `interaction-risk-analysis`
-> **一句话：** 拆行为和证据，识别诈骗、操控、虐待与霸凌风险；不替人定性。
+> **品牌名：** RelationForge
+> **定位语：** Evidence-first reasoning for people, interactions, and risk
+> **一句话：** 拆事实，看言行，辨风险，不替人定性。
+> **Skill：** `interaction-risk-analysis`、`person-deep-analysis`
 
 ## 后续维护与评估建议
 

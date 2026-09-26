@@ -1,6 +1,9 @@
-# Interaction Risk Analysis and Person Deep Analysis
+# RelationForge
 
-Two independently installable Agent Skills help you separate the material at hand, possible explanations, and unknowns while keeping verification and decisions with you.
+*Evidence-first reasoning for people, interactions, and risk*
+Separate facts, behavior, and risk without labeling people.
+
+RelationForge contains two independently installable Agent Skills that help you separate the material at hand, possible explanations, and unknowns while keeping verification and decisions with you.
 
 | Skill | When to use it | What it does |
 |---|---|---|
